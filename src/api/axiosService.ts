@@ -11,16 +11,19 @@ export class AxiosService {
 
     this.axiosInstance.interceptors.request.use((config) => {
       config.xsrfCookieName = 'XSRF-TOKEN'
+
       config.xsrfHeaderName = 'X-XSRF-TOKEN'
 
       return config
     })
+
     this.axiosInstance.interceptors.response.use(
       (response) => {
         return response
       },
       (error) => {
         const response = error?.response?.data
+
         switch (error?.response?.status) {
           case 401:
             break
@@ -32,6 +35,7 @@ export class AxiosService {
           default:
             break
         }
+
         return Promise.reject(response.errors ? response.errors : response)
       }
     )

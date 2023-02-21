@@ -1,5 +1,8 @@
 <template>
-  <el-card class="auth-form">
+  <el-card
+    v-loading="loading"
+    class="auth-form"
+  >
     <template #header>
       <div class="auth-form__header">
         <p>Авторизация</p>
@@ -21,12 +24,29 @@
         type="primary"
         size="large"
         round
+        @click="handleAuthOpen"
       >
         Авторизироваться
       </el-button>
     </template>
   </el-card>
 </template>
+
+<script lang="ts" setup>
+import { getAuthLink } from '@/modules/authForm/helpers/auth.helpers'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+
+const route = useRoute()
+
+const loading = computed(() => !!route.query.code)
+
+const handleAuthOpen = (): void => {
+  const authLink = getAuthLink()
+
+  window.open(authLink, 'blank')
+}
+</script>
 
 <style lang="scss" scoped>
 .auth-form {
