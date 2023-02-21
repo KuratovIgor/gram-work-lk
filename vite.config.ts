@@ -23,8 +23,8 @@ const fontsConfig = VitePluginFonts({
   custom: {
     families: [
       {
-        name: 'SourceSansPro',
-        local: 'SourceSansPro',
+        name: 'Manrope',
+        local: 'Manrope',
         src: './src/styles/fonts/*.ttf',
       },
     ],

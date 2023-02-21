@@ -8,13 +8,13 @@ const router = createRouter({
       name: 'MainLayout',
       component: () => import('@/layouts/MainLayout.vue'),
       redirect: {
-        name: 'ExamplePage',
+        name: 'AuthPage',
       },
       children: [
         {
-          path: '/example',
-          name: 'ExamplePage',
-          component: () => import('@/pages/ExamplePage/ExamplePage.vue')
+          path: '/auth',
+          name: 'AuthPage',
+          component: () => import('@/pages/AuthPage/AuthPage.vue')
         },
       ],
     },

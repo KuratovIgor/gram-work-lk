@@ -1,0 +1,10 @@
+.el-card {
+  border-radius: 20px;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
