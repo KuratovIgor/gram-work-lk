@@ -16,6 +16,26 @@ const router = createRouter({
           name: 'AuthPage',
           component: () => import('@/pages/AuthPage/AuthPage.vue')
         },
+        {
+          path: '/profile',
+          name: 'ProfilePage',
+          component: () => import('@/pages/ProfilePage/ProfilePage.vue')
+        },
+        {
+          path: '/statistic',
+          name: 'StatisticPage',
+          component: () => import('@/pages/StatisticPage/StatisticPage.vue')
+        },
+        {
+          path: '/resume',
+          name: 'ResumePage',
+          component: () => import('@/pages/ResumePage/ResumePage.vue')
+        },
+        {
+          path: '/history',
+          name: 'HistoryPage',
+          component: () => import('@/pages/HistoryPage/HistoryPage.vue')
+        },
       ],
     },
   ]

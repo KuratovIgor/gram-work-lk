@@ -1,7 +1,7 @@
-@use 'resources/variables/fonts' as *;
+@use "resources/variables/fonts" as *;
 
 @font-face {
-  src: url('@/styles/fonts/Manrope-Regular.ttf');
+  src: url("@/styles/fonts/Manrope-Regular.ttf");
   font-family: $font--main;
   font-weight: 400;
   font-style: normal;
@@ -9,7 +9,7 @@
 }
 
 @font-face {
-  src: url('@/styles/fonts/Manrope-Bold.ttf');
+  src: url("@/styles/fonts/Manrope-Bold.ttf");
   font-family: $font--main;
   font-weight: 700;
   font-style: normal;

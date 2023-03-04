@@ -1,4 +1,4 @@
-@import '@/styles/resources/variables/';
+@import "@/styles/resources/variables/";
 
 @mixin color($name, $color) {
   .bg-#{$name} {
@@ -14,7 +14,7 @@
 
 // stylelint-disable declaration-no-important
 // Нужно перекрывать всевозможные стили, поэтому important
-@mixin sizes-classes($screen-name: '') {
+@mixin sizes-classes($screen-name: "") {
   .mt#{$screen-name}-auto {
     margin-top: auto !important;
   }
@@ -88,7 +88,7 @@
 }
 
 // Global classes
-@mixin project-classes($screen-name: '') {
+@mixin project-classes($screen-name: "") {
   .d#{$screen-name}-b {
     display: block !important;
   }

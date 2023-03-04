@@ -1,8 +1,5 @@
 <template>
-  <el-card
-    v-loading="loading"
-    class="auth-form"
-  >
+  <el-card class="auth-form">
     <template #header>
       <div class="auth-form__header">
         <p>Авторизация</p>
@@ -15,36 +12,71 @@
           Привет!
         </p>
         <p class="mb-20">
-          Для входа в личный кабинет тебе необходимо авторизироваться через свой аккаунт на HH.ru.
+          Для входа в личный кабинет тебе необходимо ввести код, который тебе дал бот.
         </p>
-        <p>Для этого тебе нужно перейти на страницу авторизации по кнопке ниже.</p>
-      </div>
+        <p class="mb-40">
+          После ввода нажми кнопку "Авторизироваться" и вуаля!.
+        </p>
 
-      <el-button
-        type="primary"
-        size="large"
-        round
-        @click="handleAuthOpen"
-      >
-        Авторизироваться
-      </el-button>
+        <el-input
+          v-model="variables.chatId"
+          class="mb-20"
+        />
+
+        <el-button
+          type="primary"
+          size="large"
+          round
+          @click="handleUserLogin"
+        >
+          Авторизироваться
+        </el-button>
+      </div>
     </template>
   </el-card>
 </template>
 
 <script lang="ts" setup>
-import { getAuthLink } from '@/modules/authForm/helpers/auth.helpers'
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { reactive } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { getUserQuery } from '@/modules/authForm/api/queries/auth.graphql'
+import { ElMessage } from 'element-plus'
+import { setAccessToken, setChatId, setRefreshToken } from '@/modules/authForm/helpers/auth.helper'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/modules/authForm'
 
-const route = useRoute()
+const router = useRouter()
 
-const loading = computed(() => !!route.query.code)
+const authStore = useAuthStore()
 
-const handleAuthOpen = (): void => {
-  const authLink = getAuthLink()
+const variables = reactive({
+  chatId: '',
+})
 
-  window.open(authLink, 'blank')
+const { result } = useQuery(getUserQuery(), variables)
+
+const handleUserLogin = (): void => {
+  if (!result.value?.login) {
+    ElMessage({
+      message: 'Неверный код!',
+      type: 'error',
+    })
+  } else {
+    setChatId(variables.chatId)
+
+    setAccessToken(result.value.login.access_token)
+
+    setRefreshToken(result.value.login.refresh_token)
+
+    authStore.setIsAuthorized(true)
+
+    router.push({ name: 'MainPage' })
+
+    ElMessage({
+      message: 'Вы авторизированы!',
+      type: 'success',
+    })
+  }
 }
 </script>
 
@@ -69,7 +101,7 @@ const handleAuthOpen = (): void => {
     align-items: center;
     font-size: 20px;
     text-align: center;
-    margin-bottom: 40px;
+    padding: 0 40px;
   }
 
   &__title {
