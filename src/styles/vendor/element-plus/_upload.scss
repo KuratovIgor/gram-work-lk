@@ -1,0 +1,19 @@
+.el-upload {
+  position: relative;
+  border: 1px dashed #8c939d;
+  border-radius: 6px;
+  transition: var(--el-transition-duration-fast);
+  cursor: pointer;
+  overflow: hidden;
+
+  .el-icon.avatar-uploader-icon {
+    width: 178px;
+    height: 178px;
+    font-size: 28px;
+    color: #8c939d;
+  }
+
+  img {
+    width: 100%;
+  }
+}

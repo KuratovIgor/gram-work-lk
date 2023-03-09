@@ -70,7 +70,7 @@ const handleUserLogin = (): void => {
 
     authStore.setIsAuthorized(true)
 
-    router.push({ name: 'MainPage' })
+    router.push({ name: 'ProfilePage' })
 
     ElMessage({
       message: 'Вы авторизированы!',

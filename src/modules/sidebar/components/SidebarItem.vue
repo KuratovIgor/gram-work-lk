@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { LKPages } from '@/modules/sidebar/constants/enums'
+import { LKPages } from '@/utils/enums'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 

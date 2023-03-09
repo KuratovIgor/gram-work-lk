@@ -1,5 +1,5 @@
 import { Avatar, Histogram, Document, Notebook } from '@element-plus/icons-vue'
-import { LKPages } from '@/modules/sidebar/constants/enums'
+import { LKPages } from '@/utils/enums'
 
 export const SIDEBAR_ITEMS = [
     {
