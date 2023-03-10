@@ -97,8 +97,6 @@ const imageUrl = ref('')
 const { result } = useQuery(getProfileQuery(), variables)
 
 watch(() => result.value, (value) => {
-  console.log(value)
-
   profile.value.name = value.auth_usersList.items[0].name
 
   profile.value.lastname = value.auth_usersList.items[0].lastname

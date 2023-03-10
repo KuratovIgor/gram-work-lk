@@ -28,6 +28,8 @@ const handleLogout = () => {
 
   removeRefreshToken()
 
+  authStore.setIsAuthorized(false)
+
   router.push({ name: 'AuthPage' })
 }
 </script>
