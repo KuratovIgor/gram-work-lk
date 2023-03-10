@@ -1,6 +1,33 @@
-.page-card {
+.body {
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+}
+
+.page-content {
+  padding: 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-card {
+  padding: 20px;
+  height: 100%;
   border: 1px solid #f2effa;
   border-radius: 20px;
   background-color: #fff;
+}
+
+.color {
+  &-red {
+    color: #f56c6c;
+  }
+  &-success {
+    color: #67c23a;
+  }
+}
+
+.text-bold {
+  font-weight: 700;
 }

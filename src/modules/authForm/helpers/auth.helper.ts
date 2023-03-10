@@ -1,6 +1,7 @@
 // @ts-ignore
 import Cookies from 'js-cookie'
 
+const USER_ID_KEY = 'user_id'
 const CHAT_ID_KEY = 'chat_id'
 const ACCESS_TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
@@ -27,6 +28,10 @@ export const setRefreshToken = (token: string): void => {
 
 export const setChatId = (chatId: string): void => {
     Cookies.set(CHAT_ID_KEY, chatId)
+}
+
+export const setUserId = (userId: string): void => {
+    Cookies.set(USER_ID_KEY, userId)
 }
 
 export const removeAccessToken = (): string => {

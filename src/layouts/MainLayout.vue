@@ -1,11 +1,9 @@
 <template>
-  <div class="w-100 h-100 d-f fd-c">
+  <div class="d-f fd-c h-100">
     <main-header />
-    <div class="d-f h-100">
+    <div class="body">
       <main-sidebar v-if="isUserAuthorized" />
-      <div class="p-25 w-100">
-        <router-view />
-      </div>
+      <router-view />
     </div>
   </div>
 </template>

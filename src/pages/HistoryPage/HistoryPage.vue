@@ -1,9 +1,9 @@
 <template>
-  <div class="d-f fd-c h-100">
+  <div class="page-content">
     <h1>История</h1>
-    <div class="page-card">
+    <el-scrollbar class="page-card">
       <response-history />
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 

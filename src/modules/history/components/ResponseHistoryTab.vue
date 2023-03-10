@@ -1,6 +1,8 @@
 <template>
   <el-table
+    v-loading.body="loading"
     :data="history"
+    stripe
   >
     <el-table-column
       prop="vacancy"
@@ -28,11 +30,11 @@
     />
     <el-table-column label="Зарплата">
       <el-table-column
-        prop="salary_from"
+        prop="salaryFrom"
         label="От"
       />
       <el-table-column
-        prop="salary_to"
+        prop="salaryTo"
         label="До"
       />
     </el-table-column>
@@ -46,156 +48,40 @@
       label="Статус"
       :filters="filters"
       :filter-method="handleStatusFilter"
-    />
+    >
+      <template #default="scope">
+        <p 
+          class="text-bold"
+          :class="{
+            'color-red': scope.row.status === Status.FAILURE, 
+            'color-success': scope.row.status === Status.INVITATION 
+          }"
+        >
+          {{ scope.row.status }}
+        </p>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
 <script lang="ts" setup>
-interface HistoryItem {
-  vacancy: string
-  employer: string
-  url: string
-  area: string
-  salary_from: number
-  salary_to: number
-  date: string
-  status: string
-}
+import { useQuery } from '@vue/apollo-composable'
+import { getHistoryQuery } from '@/modules/history/api/queries/history.graphql'
+import { onMounted, reactive, ref, watch } from 'vue'
+import { getUserId } from '@/modules/history/helpers/history.helper'
+import { Status } from '@/modules/history/constants/constants'
+import type { HistoryItemType, StatusFilterType } from '@/modules/history/types/history.type'
+import type { GLHistoryItem } from '@/modules/history/types/graphql.types'
 
-const history = [
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Бармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-01-2000',
-    status: 'Отказ',
-  },
-  {
-    vacancy: 'Аармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-09-2000',
-    status: 'Отклик',
-  },
-  {
-    vacancy: 'Сармен',
-    employer: 'ШашлыкоФФ',
-    url: 'https://hh.ru/vacancy/76732074',
-    area: 'Москва',
-    salary_from: 15000,
-    salary_to: 40000,
-    date: '01-02-2000',
-    status: 'Приглашение',
-  }
-]
+const variables = reactive({
+  userId: 'asd'
+})
 
-const filters = [
+const { result, loading } = useQuery(getHistoryQuery(), variables)
+
+const history = ref<HistoryItemType[]>([])
+
+const filters: StatusFilterType[] = [
   {
     text: 'Отклик',
     value: 'Отклик'
@@ -210,7 +96,30 @@ const filters = [
   }
 ]
 
-const handleStatusFilter = (value: string, row: HistoryItem) => {
+watch(() => result.value, (value) => {
+  value.response_historiesList.items.forEach((item: GLHistoryItem): void => {
+    history.value.push({
+      area: item.area,
+      date: item.date,
+      employer: item.employer,
+      salaryFrom: item.salary_from,
+      salaryTo: item.salary_to,
+      status: item.status,
+      url: item.alternate_url,
+      vacancy: item.vacancy_name
+    })
+  })
+
+  history.value[0].status = 'Отказ'
+
+  history.value[1].status = 'Приглашение'
+})
+
+const handleStatusFilter = (value: string, row: HistoryItemType): boolean => {
   return row.status === value
 }
+
+onMounted(() => {
+  variables.userId = getUserId()
+})
 </script>

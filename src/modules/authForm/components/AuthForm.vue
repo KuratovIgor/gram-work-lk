@@ -41,7 +41,7 @@ import { reactive } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { getUserQuery } from '@/modules/authForm/api/queries/auth.graphql'
 import { ElMessage } from 'element-plus'
-import { setAccessToken, setChatId, setRefreshToken } from '@/modules/authForm/helpers/auth.helper'
+import { setAccessToken, setChatId, setRefreshToken, setUserId } from '@/modules/authForm/helpers/auth.helper'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/authForm'
 
@@ -69,6 +69,8 @@ const handleUserLogin = (): void => {
     setRefreshToken(result.value.login.refresh_token)
 
     authStore.setIsAuthorized(true)
+
+    setUserId(result.value.login.user_id)
 
     router.push({ name: 'ProfilePage' })
 
