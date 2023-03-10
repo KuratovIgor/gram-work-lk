@@ -23,7 +23,7 @@
       </el-col>
       <el-col :span="20">
         <p class="profile__name">
-          Иванов Иван Иванович
+          {{ profile.lastname }} {{ profile.name }} {{ profile.middlename }}
         </p>
 
         <el-row class="mb-16">
@@ -31,7 +31,7 @@
             <p>Email:</p>
           </el-col>
           <el-col :span="22">
-            <p>test@gmail.com</p>
+            <p>{{ profile.email }}</p>
           </el-col>
         </el-row>
         <el-row>
@@ -39,7 +39,7 @@
             Телефон:
           </el-col>
           <el-col :span="22">
-            89999999999
+            {{ profile.phone }}
           </el-col>
         </el-row>
       </el-col>
@@ -77,12 +77,38 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { LKPages } from '@/utils/enums'
-import type { UploadFile, UploadProps } from 'element-plus'
-import { ref } from 'vue'
+import type { UploadFile } from 'element-plus'
+import { onMounted, reactive, ref, watch } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { getChatId, getUserId } from '@/modules/profile/helpers/profile.hepler'
+import type { ProfileType } from '@/modules/profile/types/profile.type'
+import { getProfileQuery } from '@/modules/profile/api/queries/profile.graphql'
 
 const router = useRouter()
 
+const variables = reactive({
+  chatId: '',
+  userId: ''
+})
+
+const profile = ref<ProfileType>({ email: '', lastname: '', middlename: '', name: '', phone: '' })
 const imageUrl = ref('')
+
+const { result } = useQuery(getProfileQuery(), variables)
+
+watch(() => result.value, (value) => {
+  console.log(value)
+
+  profile.value.name = value.auth_usersList.items[0].name
+
+  profile.value.lastname = value.auth_usersList.items[0].lastname
+
+  profile.value.middlename = value.auth_usersList.items[0].middlename
+
+  profile.value.email = value.auth_usersList.items[0].email
+
+  profile.value.phone = value.auth_usersList.items[0].phone
+})
 
 const handleAvatarSuccess = (file: UploadFile): void => {
   imageUrl.value = URL.createObjectURL(file.raw!)
@@ -91,6 +117,12 @@ const handleAvatarSuccess = (file: UploadFile): void => {
 const handlePageOpen = (page: string): void => {
   router.push({ name: page })
 }
+
+onMounted((): void => {
+  variables.chatId = getChatId()
+
+  variables.userId = getUserId()
+})
 </script>
 
 <style lang="scss" scoped>

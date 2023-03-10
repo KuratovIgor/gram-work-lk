@@ -109,17 +109,13 @@ watch(() => result.value, (value) => {
       vacancy: item.vacancy_name
     })
   })
-
-  history.value[0].status = 'Отказ'
-
-  history.value[1].status = 'Приглашение'
 })
 
 const handleStatusFilter = (value: string, row: HistoryItemType): boolean => {
   return row.status === value
 }
 
-onMounted(() => {
+onMounted((): void => {
   variables.userId = getUserId()
 })
 </script>
