@@ -14,31 +14,50 @@ const router = createRouter({
         {
           path: '/auth',
           name: 'AuthPage',
-          component: () => import('@/pages/AuthPage/AuthPage.vue')
+          component: () => import('@/pages/AuthPage/AuthPage.vue'),
+          meta: {
+            title: 'Авторизация',
+          },
         },
         {
           path: '/profile',
           name: 'ProfilePage',
-          component: () => import('@/pages/ProfilePage/ProfilePage.vue')
+          component: () => import('@/pages/ProfilePage/ProfilePage.vue'),
+          meta: {
+            title: 'Профиль',
+          },
         },
         {
           path: '/statistic',
           name: 'StatisticPage',
-          component: () => import('@/pages/StatisticPage/StatisticPage.vue')
+          component: () => import('@/pages/StatisticPage/StatisticPage.vue'),
+          meta: {
+            title: 'Статистика',
+          },
         },
         {
           path: '/resume',
           name: 'ResumePage',
-          component: () => import('@/pages/ResumePage/ResumePage.vue')
+          component: () => import('@/pages/ResumePage/ResumePage.vue'),
+          meta: {
+            title: 'Резюме',
+          },
         },
         {
           path: '/history',
           name: 'HistoryPage',
-          component: () => import('@/pages/HistoryPage/HistoryPage.vue')
+          component: () => import('@/pages/HistoryPage/HistoryPage.vue'),
+          meta: {
+            title: 'История',
+          },
         },
       ],
     },
   ]
+})
+
+router.beforeEach((to) => {
+  document.title = to.meta.title as string
 })
 
 export default router

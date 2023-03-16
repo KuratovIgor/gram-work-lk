@@ -1,36 +1,28 @@
 <template>
-  <el-tabs
-    v-model="activeTab"
+  <response-history-chart
+    v-if="history.length"
     v-loading="loading"
-  >
-    <el-tab-pane label="История">
-      <response-history-table :history="history" />
-    </el-tab-pane>
-    <el-tab-pane label="Статистика">
-      <response-history-statistic />
-    </el-tab-pane>
-  </el-tabs>
+    :history="history"
+  />
 </template>
 
 <script lang="ts" setup>
+import ResponseHistoryChart from '@/modules/statistic/components/responseHistoryStatistic/ResponseHistoryChart.vue'
 import { onMounted, reactive, ref, watch } from 'vue'
-import ResponseHistoryTable from '@/modules/history/components/ResponseHistoryTable.vue'
-import { ResponseHistoryStatistic } from '@/modules/statistic/index'
 import { useQuery } from '@vue/apollo-composable'
-import { getHistoryQuery } from '@/modules/history/api/queries/history.graphql'
-import { HistoryItemType } from '@/modules/history/types/history.type'
-import { GLHistoryItem } from '@/modules/history/types/graphql.types'
-import { getUserId } from '@/utils/cookie'
+import { getHistoryQuery } from '@/modules/statistic/api/queries/history.graphql'
+import { GLHistoryItem } from '@/modules/statistic/types/graphql.types'
 import { getDateFormat } from '@/utils/date'
+import { getUserId } from '@/utils/cookie'
+import { HistoryItemType } from '@/modules/statistic/types/history.type'
 
 const variables = reactive({
   userId: ''
 })
 
-const { result, loading } = useQuery(getHistoryQuery(), variables)
-
-const activeTab = ref('0')
 const history = ref<HistoryItemType[]>([])
+
+const { result, loading } = useQuery(getHistoryQuery(), variables)
 
 watch(() => result.value, (value): void => {
   value.response_historiesList.items.forEach((item: GLHistoryItem): void => {

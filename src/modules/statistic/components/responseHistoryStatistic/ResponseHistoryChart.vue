@@ -1,6 +1,6 @@
 <template>
   <bar-chart
-    class="history-statistic"
+    class="history-chart"
     v-bind="barChartProps"
   />
 </template>
@@ -90,6 +90,8 @@ const chartData = computed(() => ({
   ],
 }))
 
+let delayed: boolean
+
 const options = computed(() => ({
   indexAxis: 'x',
   maintainAspectRatio: false,
@@ -113,6 +115,20 @@ const options = computed(() => ({
       },
     },
   },
+  animation: {
+    onComplete: () => {
+      delayed = true
+    },
+    delay: (context: any) => {
+      let delay = 0
+
+      if (context.type === 'data' && context.mode === 'default' && !delayed) {
+        delay = context.dataIndex * 300 + context.datasetIndex * 100
+      }
+
+      return delay
+    },
+  }
 }))
 
 const { barChartProps } = useBarChart({
@@ -122,8 +138,7 @@ const { barChartProps } = useBarChart({
 </script>
 
 <style lang="scss" scoped>
-.history-statistic {
-  height: 100%;
-  max-height: 700px;
+.history-chart {
+  height: 700px;
 }
 </style>
