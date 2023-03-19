@@ -17,6 +17,7 @@ export const getHistoryQuery = (): DocumentNode => {
                     status
                     date
                 }
+                count
             }
         }
     `
