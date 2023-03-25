@@ -9,15 +9,16 @@ body {
 }
 
 body {
-  overflow-y: hidden;
   font-family: $font--main;
+  overflow-y: hidden;
 }
 
 .h1,
 h1 {
   @include text-h1;
-  margin-bottom: 15px;
+
   color: $color--primary;
+  margin-bottom: 15px;
 }
 
 .h2,

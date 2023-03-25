@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import IconTemplate from '@/components/common/IconTemplate.vue'
 import 'virtual:svg-icons-register'
 import 'virtual:fonts.css'
 import './permissions'
@@ -34,8 +33,6 @@ const apolloProvider = createApolloProvider({
 provideApolloClient(apolloClient)
 
 const app = createApp(App)
-
-app.component('IconTemplate', IconTemplate)
 
 app.use(createPinia())
 

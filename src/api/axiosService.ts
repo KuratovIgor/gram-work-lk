@@ -1,7 +1,8 @@
 // @ts-ignore
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { AxiosResponseType } from '@/types/axios.type'
 // @ts-ignore
-import { AxiosResponseType } from '@/types/axios.type'
+import Cookie from 'js-cookie'
 
 export class AxiosService {
   private axiosInstance!: AxiosInstance
@@ -13,6 +14,13 @@ export class AxiosService {
       config.xsrfCookieName = 'XSRF-TOKEN'
 
       config.xsrfHeaderName = 'X-XSRF-TOKEN'
+
+      const token = Cookie.get()
+
+      config.headers = {
+        Authorization: `Bearer ${token.access_token}`,
+      }
+
 
       return config
     })
