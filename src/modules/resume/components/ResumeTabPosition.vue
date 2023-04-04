@@ -1,21 +1,19 @@
 <template>
-  <div class="resume-position">
-    <div class="resume-position__title">
-      {{ resume.title }}, {{ resume.salary }} руб.
-    </div>
-    <div class="resume-position__skills">
-      <el-tag
-        v-for="(skill, index) of resume.skills"
-        :key="index"
-        class="mr-5 mb-20"
-        :type="getSkillType()"
-        size="large"
-        effect="dark"
-        round
-      >
-        {{ skill }}
-      </el-tag>
-    </div>
+  <div class="title">
+    {{ resume.title }}, {{ resume.salary }} руб.
+  </div>
+  <div class="d-f fw-w">
+    <el-tag
+      v-for="(skill, index) in resume.skills"
+      :key="index"
+      class="mr-5 mb-20"
+      :type="getSkillType()"
+      size="large"
+      effect="dark"
+      round
+    >
+      {{ skill }}
+    </el-tag>
   </div>
 </template>
 
@@ -43,18 +41,3 @@ const getSkillType = (): string => {
   return skillTypes[typeIndex]
 }
 </script>
-
-<style lang="scss" scoped>
-.resume-position {
-  &__title {
-    font-weight: 700;
-    font-size: 30px;
-    margin-bottom: 40px;
-  }
-
-  &__skills {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-</style>

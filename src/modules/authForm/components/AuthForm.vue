@@ -40,10 +40,10 @@
 import { reactive } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { getUserQuery } from '@/modules/authForm/api/queries/auth.graphql'
-import { ElMessage } from 'element-plus'
 import { setAccessToken, setChatId, setRefreshToken, setUserId } from '@/modules/authForm/helpers/auth.helper'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/authForm'
+import { showErrorMessage, showSuccessMessage } from '@/utils/message'
 
 const router = useRouter()
 
@@ -57,28 +57,24 @@ const { result } = useQuery(getUserQuery(), variables)
 
 const handleUserLogin = (): void => {
   if (!result.value?.login) {
-    ElMessage({
-      message: 'Неверный код!',
-      type: 'error',
-    })
-  } else {
-    setChatId(variables.chatId)
+    showErrorMessage('Неверный код')
 
-    setAccessToken(result.value.login.access_token)
-
-    setRefreshToken(result.value.login.refresh_token)
-
-    authStore.setIsAuthorized(true)
-
-    setUserId(result.value.login.user_id)
-
-    router.push({ name: 'ProfilePage' })
-
-    ElMessage({
-      message: 'Вы авторизированы!',
-      type: 'success',
-    })
+    return
   }
+
+  setChatId(variables.chatId)
+
+  setAccessToken(result.value.login.access_token)
+
+  setRefreshToken(result.value.login.refresh_token)
+
+  authStore.setIsAuthorized(true)
+
+  setUserId(result.value.login.user_id)
+
+  router.push({ name: 'ProfilePage' })
+
+  showSuccessMessage('Вы авторизированы!')
 }
 </script>
 

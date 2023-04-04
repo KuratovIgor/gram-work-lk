@@ -5,7 +5,7 @@
   >
     <el-col :span="6">
       <el-skeleton
-        :loading="!resume.photo"
+        :loading="!resume.photo.medium"
       >
         <template #template>
           <el-skeleton-item
@@ -16,13 +16,13 @@
         <template #default>
           <img
             class="resume-user__photo"
-            :src="resume.photo"
+            :src="resume.photo.medium"
           />
         </template>
       </el-skeleton>
     </el-col>
     <el-col :span="17">
-      <div class="resume-user__title">
+      <div class="title">
         {{ resume.firstName }} {{ resume.lastName }} {{ resume.middleName }}, {{ resume.age }} {{ ageSignature }}
       </div>
       <div class="mb-20">
@@ -52,6 +52,7 @@ const ageSignature = computed(() => declination(props.resume.age, ['год', 'г
 <style lang="scss" scoped>
 .resume-user {
   &__photo {
+    width: 100%;
     height: 100%;
     max-height: 200px;
     border-radius: 10px;
@@ -59,12 +60,6 @@ const ageSignature = computed(() => declination(props.resume.age, ['год', 'г
     &--skeleton {
       height: 250px;
     }
-  }
-
-  &__title {
-    font-weight: 700;
-    font-size: 30px;
-    margin-bottom: 40px;
   }
 }
 </style>

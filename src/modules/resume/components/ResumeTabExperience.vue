@@ -1,5 +1,8 @@
 <template>
   <el-scrollbar class="resume-experience">
+    <div class="title">
+      Опыт работы
+    </div>
     <el-timeline>
       <el-timeline-item
         v-for="(experienceItem, index) in experience"
@@ -8,7 +11,7 @@
       >
         <el-card class="resume-experience__card">
           <template #header>
-            <div class="resume-experience__title">
+            <div class="resume-experience__card-title">
               {{ experienceItem.company }}
             </div>
           </template>
@@ -43,14 +46,14 @@ const getCorrectDate = (date: string): string => {
 
 <style lang="scss" scoped>
 .resume-experience {
-  max-height: 320px;
+  max-height: 300px;
 
   &__card {
-    font-size: 20px;
+    font-size: 18px;
   }
 
-  &__title {
-    font-size: 25px;
+  &__card-title {
+    font-size: 20px;
   }
 }
 </style>

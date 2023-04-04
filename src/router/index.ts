@@ -16,7 +16,7 @@ const router = createRouter({
           name: 'AuthPage',
           component: () => import('@/pages/AuthPage/AuthPage.vue'),
           meta: {
-            title: 'Авторизация',
+            title: 'GramWork',
           },
         },
         {
@@ -24,7 +24,7 @@ const router = createRouter({
           name: 'ProfilePage',
           component: () => import('@/pages/ProfilePage/ProfilePage.vue'),
           meta: {
-            title: 'Профиль',
+            title: 'GW | Профиль',
           },
         },
         {
@@ -32,7 +32,7 @@ const router = createRouter({
           name: 'StatisticPage',
           component: () => import('@/pages/StatisticPage/StatisticPage.vue'),
           meta: {
-            title: 'Статистика',
+            title: 'GW | Статистика',
           },
         },
         {
@@ -40,7 +40,15 @@ const router = createRouter({
           name: 'ResumePage',
           component: () => import('@/pages/ResumePage/ResumePage.vue'),
           meta: {
-            title: 'Резюме',
+            title: 'GW | Резюме',
+          },
+        },
+        {
+          path: '/resume/:resumeId',
+          name: 'ResumeEditionPage',
+          component: () => import('@/pages/ResumeEditionPage/ResumeEditionPage.vue'),
+          meta: {
+            title: 'GW | Резюме',
           },
         },
         {
@@ -48,7 +56,15 @@ const router = createRouter({
           name: 'HistoryPage',
           component: () => import('@/pages/HistoryPage/HistoryPage.vue'),
           meta: {
-            title: 'История',
+            title: 'GW | История',
+          },
+        },
+        {
+          path: '/filters',
+          name: 'BotFiltersPage',
+          component: () => import('@/pages/BotFiltersPage/BotFiltersPage.vue'),
+          meta: {
+            title: 'GW | Фильтры',
           },
         },
       ],

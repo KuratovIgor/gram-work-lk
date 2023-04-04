@@ -1,40 +1,33 @@
-import type { ResumeType, ExperienceType, EducationType } from '@/modules/resume/types/resumes.type'
+import { resumesApi } from '@/modules/resume/api/resumes.api'
+import { showErrorMessage } from '@/utils/message'
+import { resumeApi } from '@/api/resume.api'
+import { parseResumeInfo } from '@/helpers/resume.helper'
+import type { ResumeType } from '@/modules/resume'
 
-export const parseResumeInfo = (response: any): ResumeType => {
-    const experience: ExperienceType[] = []
+export const getResumes = async (): Promise<ResumeType[]> => {
+    const resumes: ResumeType[] = []
+    
+    const [error, response] = await resumesApi.getResumes()
 
-    response.experience.forEach((item: any): void => {
-        const experienceItem: ExperienceType = {
-            company: item.company,
-            end: item.end,
-            position: item.position,
-            start: item.start,
+    if (error) {
+        showErrorMessage('При получении резюме произошла ошибка!')
+
+        return []
+    }
+
+    for (const item of response.items) {
+        const [error, resumeResponse] = await resumeApi.getResume(item.id)
+
+        if (error) {
+            showErrorMessage('При получении резюме произошла ошибка!')
+
+            return []
         }
 
-        experience.push(experienceItem)
-    })
+        const resume = parseResumeInfo(resumeResponse)
 
-    const education: EducationType = {
-        name: response.education.elementary.length ? response.education.elementary[0].name : '',
-        year: response.education.elementary.length ? response.education.elementary[0].year : '',
-        level: response.education.level.name
+        resumes.push(resume)
     }
 
-    const resume: ResumeType = {
-        age: response.age,
-        area: response.area.name,
-        download: response.download.pdf.url,
-        education,
-        experience,
-        email: response.contact[1].value,
-        firstName: response.first_name,
-        lastName: response.last_name,
-        middleName: response.middle_name,
-        photo: response.photo?.medium,
-        salary: response.salary.amount,
-        title: response.title,
-        skills: response.skill_set,
-    }
-
-    return resume
+    return resumes
 }

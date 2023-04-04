@@ -21,7 +21,7 @@ const authStore = useAuthStore()
 
 const router = useRouter()
 
-const handleLogout = () => {
+const handleLogout = (): void => {
   removeChatId()
 
   removeAccessToken()
@@ -44,6 +44,10 @@ const handleLogout = () => {
   line-height: 31px;
   color: $color--primary;
   padding: 10px 20px;
+
+  &__logo {
+    width: 50px;
+  }
 
   &__title {
     font-size: 26px;

@@ -34,14 +34,13 @@
     <el-row justify="end">
       <el-button
         type="warning"
-        size="large"
         icon="edit"
+        @click="handleResumeEditionPageOpen"
       >
         Редактировать
       </el-button>
       <el-button
         type="primary"
-        size="large"
         icon="download"
         @click="handleResumeDownload(resume.download, resume.title)"
       >
@@ -58,6 +57,9 @@ import ResumeTabExperience from '@/modules/resume/components/ResumeTabExperience
 import ResumeTabUser from '@/modules/resume/components/ResumeTabUser.vue'
 import ResumeTabPosition from '@/modules/resume/components/ResumeTabPosition.vue'
 import ResumeTabEducation from '@/modules/resume/components/ResumeTabEducation.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 type Props = {
   resume: ResumeType
@@ -67,6 +69,15 @@ const props = withDefaults(defineProps<Props>(), {
   resume: undefined
 })
 
+const handleResumeEditionPageOpen = (): void => {
+  router.push({
+    name: 'ResumeEditionPage',
+    params: {
+      resumeId: props.resume.id,
+    },
+  })
+}
+
 const handleResumeDownload = (url: string, fileName: string): void => {
   downloadResumePdf(url, fileName)
 }
@@ -74,12 +85,6 @@ const handleResumeDownload = (url: string, fileName: string): void => {
 
 <style lang="scss" scoped>
 .resume {
-  font-size: 20px;
-
-  &__title {
-    font-weight: 700;
-    font-size: 30px;
-    margin-bottom: 40px;
-  }
+  font-size: 18px;
 }
 </style>

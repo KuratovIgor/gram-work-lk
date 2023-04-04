@@ -1,4 +1,4 @@
-import { Avatar, Histogram, Document, Notebook } from '@element-plus/icons-vue'
+import { Avatar, Document, Histogram, Notebook, Filter } from '@element-plus/icons-vue'
 import { LKPages } from '@/utils/enums'
 
 export const SIDEBAR_ITEMS = [
@@ -22,4 +22,9 @@ export const SIDEBAR_ITEMS = [
         icon: Notebook,
         label: 'История',
     },
+    {
+        page: LKPages.FILTERS,
+        icon: Filter,
+        label: 'Фильтры',
+    }
 ]

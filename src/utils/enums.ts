@@ -3,4 +3,5 @@ export enum LKPages {
     STATISTIC = 'StatisticPage',
     RESUME = 'ResumePage',
     HISTORY = 'HistoryPage',
+    FILTERS = 'BotFiltersPage',
 }

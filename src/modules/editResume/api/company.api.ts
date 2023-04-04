@@ -1,27 +1,23 @@
 import { AxiosService } from '@/api/axiosService'
 import type { AxiosRequestConfig } from 'axios'
 
-class ResumeApi extends AxiosService {
+class CompanyApi extends AxiosService {
     constructor(config?: AxiosRequestConfig) {
         super(config)
     }
 
-    public getResumes () {
+    public getCompanies (search: string) {
         return this.axiosCall({
             method: 'GET',
-            url: '/resumes/mine'
-        })
-    }
-
-    public getResume (resumeId: number) {
-        return this.axiosCall({
-            method: 'GET',
-            url: `/resumes/${resumeId}`
+            url: '/suggests/companies',
+            params: {
+                text: search,
+            },
         })
     }
 }
 
-export const resumeApi = new ResumeApi({
+export const companyApi = new CompanyApi({
     baseURL: '',
     withCredentials: true,
 })
