@@ -1,17 +1,23 @@
 import router from '@/router'
-import { getChatId, useAuthStore } from '@/modules/authForm/index'
+import { getChatId, getIsAmin } from '@/utils/cookie'
+import { useUserStore } from '@/stores/user.store'
 
 const whiteList = ['AuthPage']
 
 router.beforeEach((to, from, next) => {
-    const authStore = useAuthStore()
+    const userStore = useUserStore()
     const chatId = getChatId()
+    const isAdmin = getIsAmin()
 
-    if (!authStore.isAuthorized && chatId) {
-        authStore.setIsAuthorized(true)
+    if ((!userStore.isAuthorized && chatId) || (!userStore.isAuthorized && isAdmin)) {
+        userStore.setIsAuthorized(true)
     }
 
-    if (chatId && authStore.isAuthorized) {
+    if (userStore.isAuthorized && isAdmin) {
+        userStore.setIsAdmin(true)
+    }
+
+    if ((chatId && userStore.isAuthorized) || (userStore.isAuthorized && userStore.isAdmin)) {
         next()
     }
 

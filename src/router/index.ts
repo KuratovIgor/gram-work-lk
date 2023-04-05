@@ -22,7 +22,7 @@ const router = createRouter({
         {
           path: '/profile',
           name: 'ProfilePage',
-          component: () => import('@/pages/ProfilePage/ProfilePage.vue'),
+          component: () => import('@/pages/User/ProfilePage/ProfilePage.vue'),
           meta: {
             title: 'GW | Профиль',
           },
@@ -30,7 +30,7 @@ const router = createRouter({
         {
           path: '/statistic',
           name: 'StatisticPage',
-          component: () => import('@/pages/StatisticPage/StatisticPage.vue'),
+          component: () => import('@/pages/User/StatisticPage/StatisticPage.vue'),
           meta: {
             title: 'GW | Статистика',
           },
@@ -38,7 +38,7 @@ const router = createRouter({
         {
           path: '/resume',
           name: 'ResumePage',
-          component: () => import('@/pages/ResumePage/ResumePage.vue'),
+          component: () => import('@/pages/User/ResumePage/ResumePage.vue'),
           meta: {
             title: 'GW | Резюме',
           },
@@ -46,7 +46,7 @@ const router = createRouter({
         {
           path: '/resume/:resumeId',
           name: 'ResumeEditionPage',
-          component: () => import('@/pages/ResumeEditionPage/ResumeEditionPage.vue'),
+          component: () => import('@/pages/User/ResumeEditionPage/ResumeEditionPage.vue'),
           meta: {
             title: 'GW | Резюме',
           },
@@ -54,7 +54,7 @@ const router = createRouter({
         {
           path: '/history',
           name: 'HistoryPage',
-          component: () => import('@/pages/HistoryPage/HistoryPage.vue'),
+          component: () => import('@/pages/User/HistoryPage/HistoryPage.vue'),
           meta: {
             title: 'GW | История',
           },
@@ -62,9 +62,33 @@ const router = createRouter({
         {
           path: '/filters',
           name: 'BotFiltersPage',
-          component: () => import('@/pages/BotFiltersPage/BotFiltersPage.vue'),
+          component: () => import('@/pages/User/BotFiltersPage/BotFiltersPage.vue'),
           meta: {
             title: 'GW | Фильтры',
+          },
+        },
+        {
+          path: '/admin/profile',
+          name: 'AdminProfilePage',
+          component: () => import('@/pages/Admin/ProfilePage/AdminProfilePage.vue'),
+          meta: {
+            title: 'GW | Фильтры',
+          }
+        },
+        {
+          path: '/admin/users',
+          name: 'UsersProfilePage',
+          component: () => import('@/pages/Admin/UsersPage/UsersPage.vue'),
+          meta: {
+            title: 'GW | Пользователи',
+          }
+        },
+        {
+          path: '/admin/statistic',
+          name: 'AdminStatisticPage',
+          component: () => import('@/pages/Admin/AdminStatisticPage/AdminStatisticPage.vue'),
+          meta: {
+            title: 'GW | Статистика',
           },
         },
       ],

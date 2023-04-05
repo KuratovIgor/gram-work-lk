@@ -5,3 +5,9 @@ export enum LKPages {
     HISTORY = 'HistoryPage',
     FILTERS = 'BotFiltersPage',
 }
+
+export enum AdminLKPages {
+    PROFILE = 'AdminProfilePage',
+    USERS = 'UsersProfilePage',
+    STATISTIC = 'AdminStatisticPage',
+}

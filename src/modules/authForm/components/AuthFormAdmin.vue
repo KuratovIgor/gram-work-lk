@@ -40,7 +40,8 @@
       type="danger"
       size="large"
       round
-      @click="handleUserLogin(ruleAuthForm)"
+      :loading="loading"
+      @click="handleUserAuthorize(ruleAuthForm)"
     >
       Авторизироваться
     </el-button>
@@ -51,7 +52,16 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import type { AuthType } from '@/modules/authForm/types/auth.type'
-import { showSuccessMessage } from '@/utils/message'
+import { showErrorMessage, showSuccessMessage } from '@/utils/message'
+import { useQuery } from '@vue/apollo-composable'
+import { getAdminQuery } from '@/modules/authForm/api/queries/auth.graphql'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user.store'
+import { setIsAdmin } from '@/utils/cookie'
+
+const router = useRouter()
+
+const userStore = useUserStore()
 
 const ruleAuthForm = ref<FormInstance>()
 const authForm: AuthType = reactive({
@@ -64,13 +74,42 @@ const authFormRules = reactive<FormRules>({
   password: { required: true, message: 'Введите пароль', trigger: 'blur' },
 })
 
-const handleUserLogin = (form: FormInstance | undefined): void => {
+const { loading, variables, onResult: onAuthorize, refetch } = useQuery(getAdminQuery(), { login: '', password: '' })
+
+onAuthorize((queryResult): void => {
+  if (queryResult.loading) return
+
+  if (!queryResult.data.adminsList.items.length) {
+    showErrorMessage('Неверный логин или пароль!')
+
+    return
+  }
+
+  userStore.setIsAuthorized(true)
+
+  userStore.setIsAdmin(true)
+  
+  setIsAdmin(true)
+
+  showSuccessMessage('Вы авторизированы!')
+
+  router.push({ name: 'AdminProfilePage' })
+})
+
+const handleUserAuthorize = (form: FormInstance | undefined): void => {
   if (!form) return
 
   form.validate(async (valid): Promise<boolean> => {
     if (!valid) return false
 
-    showSuccessMessage('Вы авторизированы!')
+    if (variables.value?.login === authForm.login && variables.value?.password === authForm.password) {
+      refetch()
+    } else {
+      variables.value = {
+        login: authForm.login,
+        password: authForm.password,
+      }
+    }
 
     form.resetFields()
 

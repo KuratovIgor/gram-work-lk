@@ -39,14 +39,14 @@
 import { ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { getUserQuery } from '@/modules/authForm/api/queries/auth.graphql'
-import { setAccessToken, setChatId, setRefreshToken, setUserId } from '@/modules/authForm/helpers/auth.helper'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/modules/authForm'
+import { useUserStore } from '@/stores/user.store'
 import { showErrorMessage, showSuccessMessage } from '@/utils/message'
+import { setAccessToken, setChatId, setRefreshToken, setUserId } from '@/utils/cookie'
 
 const router = useRouter()
 
-const authStore = useAuthStore()
+const userStore = useUserStore()
 
 const chatId = ref('')
 
@@ -77,7 +77,9 @@ const authorize = (accessToken: string, refreshToken: string, userId: string): v
 
   setUserId(userId)
 
-  authStore.setIsAuthorized(true)
+  userStore.setIsAuthorized(true)
+
+  userStore.setIsAdmin(false)
 }
 
 const handleUserLogin = (): void => {

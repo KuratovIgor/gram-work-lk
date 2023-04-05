@@ -1,4 +1,4 @@
-import type { ResumeType, ExperienceType, EducationType } from '@/modules/resume/types/resumes.type'
+import type { ResumeType, ExperienceType, EducationType } from '@/modules/user/resume/types/resumes.type'
 
 export const parseResumeInfo = (response: any): ResumeType => {
     const experience: ExperienceType[] = []

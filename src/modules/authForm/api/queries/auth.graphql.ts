@@ -12,3 +12,15 @@ export const getUserQuery = (): DocumentNode => {
         }
     `
 }
+
+export const getAdminQuery = (): DocumentNode => {
+    return gql`
+        query getAdmin ($login: String!, $password: String!) {
+            adminsList(filter: {login: {equals:$login}, AND: {password: {equals:$password}}}) {
+                items {
+                    name
+                }
+            }
+        }
+    `
+}
