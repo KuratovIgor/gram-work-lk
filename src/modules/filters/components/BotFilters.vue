@@ -115,9 +115,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getAllAreas } from '@/helpers/area.helper'
-import { AreaType } from '@/types/area.type'
+import type { AreaType } from '@/types/area.type'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { getFilters, saveFilters } from '@/modules/filters/api/mutations/filters.graphql'
 import { getChatId } from '@/modules/authForm'
@@ -134,33 +134,33 @@ const areas = ref<AreaType[]>()
 
 let areaId = ''
 
-const { result, variables, loading: gettingLoading } = useQuery(getFilters(), { chatId: '' })
+const { variables, loading: gettingLoading, onResult: onResultGetting } = useQuery(getFilters(), { chatId: '' })
 const {
   mutate: saveDefaultFilters,
   loading: savingLoading,
-  error: handleError,
+  onError: onErrorSaving,
   onDone: onSuccessSaving
 } = useMutation(saveFilters())
 
-watch(() => result.value, () => {
-  name.value = result.value.default_filter.search
+onResultGetting((resultQuery): void => {
+  name.value = resultQuery.data.default_filter.search
 
-  salary.value = result.value.default_filter.salary
+  salary.value = resultQuery.data.default_filter.salary
 
-  area.value = result.value.default_filter.area
+  area.value = resultQuery.data.default_filter.area
 
-  areaId = result.value.default_filter.area_id
+  areaId = resultQuery.data.default_filter.area_id
 
-  schedule.value = result.value.default_filter.schedule
+  schedule.value = resultQuery.data.default_filter.schedule
 
-  experience.value = result.value.default_filter.experience
+  experience.value = resultQuery.data.default_filter.experience
 })
 
-watch(() => handleError.value, () => {
+onErrorSaving((): void => {
   showErrorMessage('При сохранении данных произошла ошибка!')
 })
 
-onSuccessSaving(() => {
+onSuccessSaving((): void => {
   showSuccessMessage('Фильтры сохранены!')
 })
 
