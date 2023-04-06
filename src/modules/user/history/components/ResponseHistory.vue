@@ -28,8 +28,8 @@ import ResponseHistoryTable from '@/modules/user/history/components/ResponseHist
 import { ResponseHistoryStatistic } from '@/modules/user/statistic'
 import { useQuery } from '@vue/apollo-composable'
 import { getHistoryQuery } from '@/modules/user/history/api/queries/history.graphql'
-import { HistoryItemType } from '@/modules/user/history/types/history.type'
-import { GLHistoryItem } from '@/modules/user/history/types/graphql.types'
+import type { HistoryItemType } from '@/modules/user/history/types/history.type'
+import type { GLHistoryItem } from '@/modules/user/history/types/graphql.types'
 import { getUserId } from '@/utils/cookie'
 import { getDateFormat } from '@/utils/date'
 

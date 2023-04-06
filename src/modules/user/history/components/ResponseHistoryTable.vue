@@ -1,6 +1,6 @@
 <template>
   <el-table
-    :data="history"
+    :data="props.history"
     stripe
   >
     <el-table-column
