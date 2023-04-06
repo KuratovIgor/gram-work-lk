@@ -49,12 +49,19 @@ import SalaryChart from '@/modules/user/statistic/components/salaryStatistic/Sal
 import { useQuery } from '@vue/apollo-composable'
 import { getSalaries } from '@/modules/user/statistic/api/queries/salary.graphql'
 import { onMounted, reactive, ref, watch } from 'vue'
-import { getUserId } from '@/utils/cookie'
 import { GLSalariesType } from '@/modules/user/statistic/types/graphql.types'
 import type { SalaryType } from '@/modules/user/statistic/types/salary.type'
 import SalaryResponseChart from '@/modules/user/statistic/components/salaryStatistic/SalaryResponseChart.vue'
 import SalaryInvitationChart from '@/modules/user/statistic/components/salaryStatistic/SalaryInvitationChart.vue'
 import SalaryFailureChart from '@/modules/user/statistic/components/salaryStatistic/SalaryFailureChart.vue'
+
+type Props = {
+  userId: string,
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  userId: '',
+})
 
 const variables = reactive({
   userId: ''
@@ -75,6 +82,6 @@ watch(() => result.value, (value): void => {
 })
 
 onMounted((): void => {
-  variables.userId = getUserId()
+  variables.userId = props.userId
 })
 </script>

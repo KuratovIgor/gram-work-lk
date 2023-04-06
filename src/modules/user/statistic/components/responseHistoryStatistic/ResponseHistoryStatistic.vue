@@ -13,8 +13,15 @@ import { useQuery } from '@vue/apollo-composable'
 import { getHistoryQuery } from '@/modules/user/statistic/api/queries/history.graphql'
 import { GLHistoryItem } from '@/modules/user/statistic/types/graphql.types'
 import { getDateFormat } from '@/utils/date'
-import { getUserId } from '@/utils/cookie'
 import { HistoryItemType } from '@/modules/user/statistic/types/history.type'
+
+type Props = {
+  userId: string,
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  userId: '',
+})
 
 const variables = reactive({
   userId: ''
@@ -22,7 +29,7 @@ const variables = reactive({
 
 const history = ref<HistoryItemType[]>([])
 
-const { result, loading } = useQuery(getHistoryQuery(), variables)
+const { result, loading, refetch } = useQuery(getHistoryQuery(), variables)
 
 watch(() => result.value, (value): void => {
   value.response_historiesList.items.forEach((item: GLHistoryItem): void => {
@@ -40,6 +47,8 @@ watch(() => result.value, (value): void => {
 })
 
 onMounted((): void => {
-  variables.userId = getUserId()
+  refetch()
+
+  variables.userId = props.userId
 })
 </script>

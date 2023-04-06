@@ -20,6 +20,13 @@
   overflow: hidden;
 }
 
+.title {
+  font-weight: 700;
+  font-size: 25px;
+  margin-bottom: 30px;
+  color: #8155b9;
+}
+
 .color {
   &-red {
     color: #f56c6c;
@@ -28,13 +35,6 @@
   &-success {
     color: #67c23a;
   }
-}
-
-.title {
-  font-weight: 700;
-  font-size: 25px;
-  margin-bottom: 30px;
-  color: #8155b9;
 }
 
 .text-bold {
