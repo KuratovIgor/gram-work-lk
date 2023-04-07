@@ -34,21 +34,9 @@ const invitations = computed((): number[] => getData(Status.INVITATION))
 const failures = computed((): number[] => getData(Status.FAILURE))
 const responses = computed((): number[] => getData(Status.RESPONSE))
 
-
 const chartData = computed(() => ({
   labels: labels.value,
   datasets: [
-    {
-      label: 'Приглашения',
-      data: invitations.value,
-      fill: true,
-      backgroundColor: 'rgba(103, 194, 58, 0.2)',
-      borderColor: '#67c23a',
-      pointBackgroundColor: '#67c23a',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(103, 194, 58)',
-    },
     {
       label: 'Отказы',
       data: failures.value,
@@ -59,6 +47,17 @@ const chartData = computed(() => ({
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(255, 99, 132)',
+    },
+    {
+      label: 'Приглашения',
+      data: invitations.value,
+      fill: true,
+      backgroundColor: 'rgba(103, 194, 58, 0.2)',
+      borderColor: '#67c23a',
+      pointBackgroundColor: '#67c23a',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(103, 194, 58)',
     },
     {
       label: 'Отклики',
@@ -126,6 +125,5 @@ const { radarChartProps } = useRadarChart({
 <style lang="scss" scoped>
 .radar-chart {
   height: 100%;
-  max-height: 700px;
 }
 </style>

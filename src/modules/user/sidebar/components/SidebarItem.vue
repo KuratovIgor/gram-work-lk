@@ -3,6 +3,7 @@
     :to="{ name: props.page }"
     class="sidebar-item"
     :class="{ 'sidebar-item--active': currentPage === props.page }"
+    @click="handleDrawerClose"
   >
     <el-tooltip
       v-if="!isMobile"
@@ -45,6 +46,7 @@ type Props = {
   label: string
 }
 
+const emit = defineEmits(['close'])
 const props = withDefaults(defineProps<Props>(), {
   page: undefined,
   label: '',
@@ -53,6 +55,10 @@ const props = withDefaults(defineProps<Props>(), {
 const route = useRoute()
 
 const currentPage = computed(() => route.name)
+
+const handleDrawerClose = (): void => {
+  emit('close')
+}
 </script>
 
 <style lang="scss" scoped>

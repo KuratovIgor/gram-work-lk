@@ -24,7 +24,7 @@
   overflow: auto;
 
   @media (max-width: 768px) {
-    padding: 0 10px;
+    padding: 0 10px 20px 10px;
   }
 }
 
@@ -46,6 +46,10 @@
 
   &-success {
     color: #67c23a;
+  }
+
+  &-info {
+    color: #808080;
   }
 }
 

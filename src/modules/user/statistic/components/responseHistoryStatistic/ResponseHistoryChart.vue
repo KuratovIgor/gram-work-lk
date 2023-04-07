@@ -8,9 +8,12 @@
 <script lang="ts" setup>
 import { Chart, registerables } from 'chart.js'
 import { BarChart, useBarChart } from 'vue-chart-3'
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { HistoryItemType } from '@/modules/user/history/types/history.type'
 import { uniq } from 'lodash'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
 
 type Props = {
   history: HistoryItemType[]
@@ -25,7 +28,13 @@ Chart.register(...registerables)
 const labels = computed(() => {
   const array = props.history.map((item) => item.date)
 
-  return uniq(array)
+  if (!isMobile.value) {
+    return uniq(array)
+  }
+
+  if (uniq(array).length <= 3) return uniq(array)
+
+  return [uniq(array)[uniq(array).length - 3], uniq(array)[uniq(array).length - 2], uniq(array)[uniq(array).length - 1]]
 })
 
 const data = computed(() => {

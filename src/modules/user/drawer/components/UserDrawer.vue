@@ -11,7 +11,7 @@
       </h1>
     </template>
     <sidebar-item
-      v-for="(sidebarItem, index) in ADMIN_SIDEBAR_ITEMS"
+      v-for="(sidebarItem, index) in USER_SIDEBAR_ITEMS"
       :key="index"
       :page="sidebarItem.page"
       :label="sidebarItem.label"
@@ -30,8 +30,8 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { ADMIN_SIDEBAR_ITEMS } from '@/modules/admin/sidebar/constants/sidebar'
 import SidebarItem from '@/modules/user/sidebar/components/SidebarItem.vue'
+import { USER_SIDEBAR_ITEMS } from '@/modules/user/sidebar/constants/sidebar'
 
 type Props = {
   isDrawerVisible: boolean,

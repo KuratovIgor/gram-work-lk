@@ -1,6 +1,6 @@
 <template>
   <response-history-table
-    v-if="!isMobile"
+    v-if="!isMobile && !isTablet"
     v-loading="loading"
     :history="paginatedHistory"
   />
@@ -30,6 +30,7 @@ import ResponseHistoryCards from '@/modules/user/history/components/ResponseHist
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
+const isTablet = computed(() => !screenSize.value || screenSize.value === 'sm')
 
 
 type Props = {

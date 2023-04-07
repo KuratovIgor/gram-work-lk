@@ -1,0 +1,14 @@
+.el-collapse {
+  --el-collapse-border-color: none;
+
+  &-item {
+    &__header {
+      font-size: 16px;
+    }
+
+    &__content {
+      font-size: 14px;
+      color: #8155b9;
+    }
+  }
+}

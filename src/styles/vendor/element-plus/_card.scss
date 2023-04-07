@@ -4,6 +4,11 @@
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(#f56c6c, 0.5);
   font-size: 14px;
+
+  &__header {
+    color: #3f2390;
+    font-weight: 700;
+  }
 }
 
 .resume-experience {

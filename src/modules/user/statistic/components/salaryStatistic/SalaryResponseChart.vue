@@ -105,5 +105,13 @@ const { radarChartProps } = useRadarChart({
 <style lang="scss" scoped>
 .radar-chart {
   height: 300px;
+  
+  @media (max-width: $screen--sm) {
+    height: 100%;
+  }
+
+  @media (max-width: $screen--xs) {
+    height: 100%;
+  }
 }
 </style>

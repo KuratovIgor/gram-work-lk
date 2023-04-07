@@ -103,7 +103,7 @@ import { computed, getCurrentInstance } from 'vue'
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const buttonSize = computed(() => screenSize.value === 'lg' ? 'default' : 'small')
-const columnWidth = computed(() => screenSize.value === 'lg' ? '' : 50)
+const columnWidth = computed(() => screenSize.value === 'lg' ? '' : 60)
 
 const router = useRouter()
 
