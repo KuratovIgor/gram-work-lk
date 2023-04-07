@@ -6,6 +6,7 @@ const CHAT_ID_KEY = 'chat_id'
 const ACCESS_TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 const IS_ADMIN_KEY = 'is_admin'
+const USER_NAME_KEY = 'user_name'
 
 export const getIsAmin = (): boolean => {
     return Cookies.get(IS_ADMIN_KEY)
@@ -25,6 +26,10 @@ export const getAccessToken = (): string => {
 
 export const getRefreshToken = (): string => {
     return Cookies.get(REFRESH_TOKEN_KEY)
+}
+
+export const getUserName = (): string => {
+    return Cookies.get(USER_NAME_KEY)
 }
 
 export const setIsAdmin = (isAdmin: boolean): void => {
@@ -47,6 +52,10 @@ export const setUserId = (userId: string): void => {
     Cookies.set(USER_ID_KEY, userId)
 }
 
+export const setUserName = (userName: string): void => {
+    Cookies.set(USER_NAME_KEY, userName)
+}
+
 export const removeAccessToken = (): string => {
     return Cookies.remove(ACCESS_TOKEN_KEY)
 }
@@ -57,4 +66,16 @@ export const removeRefreshToken = (): string => {
 
 export const removeChatId = (): string => {
     return Cookies.remove(CHAT_ID_KEY)
+}
+
+export const removeUserId = (): string => {
+    return Cookies.remove(USER_ID_KEY)
+}
+
+export const removeIsAdmin = (): string => {
+    return Cookies.remove(IS_ADMIN_KEY)
+}
+
+export const removeUserName = (): string => {
+    return Cookies.remove(USER_NAME_KEY)
 }

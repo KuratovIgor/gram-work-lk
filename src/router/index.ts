@@ -68,16 +68,8 @@ const router = createRouter({
           },
         },
         {
-          path: '/admin/profile',
-          name: 'AdminProfilePage',
-          component: () => import('@/pages/Admin/ProfilePage/AdminProfilePage.vue'),
-          meta: {
-            title: 'GW | Фильтры',
-          }
-        },
-        {
           path: '/admin/users',
-          name: 'UsersProfilePage',
+          name: 'UsersPage',
           component: () => import('@/pages/Admin/UsersPage/UsersPage.vue'),
           meta: {
             title: 'GW | Пользователи',

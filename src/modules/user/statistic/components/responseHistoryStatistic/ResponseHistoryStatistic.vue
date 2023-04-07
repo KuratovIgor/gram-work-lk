@@ -11,9 +11,9 @@ import ResponseHistoryChart from '@/modules/user/statistic/components/responseHi
 import { onMounted, reactive, ref, watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { getHistoryQuery } from '@/modules/user/statistic/api/queries/history.graphql'
-import { GLHistoryItem } from '@/modules/user/statistic/types/graphql.types'
+import type { GLHistoryItem } from '@/modules/user/statistic/types/graphql.types'
 import { getDateFormat } from '@/utils/date'
-import { HistoryItemType } from '@/modules/user/statistic/types/history.type'
+import type { HistoryItemType } from '@/modules/user/statistic/types/history.type'
 
 type Props = {
   userId: string,
@@ -29,10 +29,14 @@ const variables = reactive({
 
 const history = ref<HistoryItemType[]>([])
 
-const { result, loading, refetch } = useQuery(getHistoryQuery(), variables)
+const { loading, onResult: onGetHistory } = useQuery(getHistoryQuery(), variables)
 
-watch(() => result.value, (value): void => {
-  value.response_historiesList.items.forEach((item: GLHistoryItem): void => {
+onGetHistory((queryResult): void => {
+  if (queryResult.loading || !queryResult.data.response_historiesList.items.length) return
+
+  history.value = []
+
+  queryResult.data.response_historiesList.items.forEach((item: GLHistoryItem): void => {
     history.value.push({
       area: item.area,
       date: getDateFormat(new Date(item.date), 'dd MMMM yyyy'),
@@ -46,9 +50,11 @@ watch(() => result.value, (value): void => {
   })
 })
 
-onMounted((): void => {
-  refetch()
+watch(() => props.userId, () => {
+  variables.userId = props.userId
+})
 
+onMounted((): void => {
   variables.userId = props.userId
 })
 </script>

@@ -57,7 +57,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { getAdminQuery } from '@/modules/authForm/api/queries/auth.graphql'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
-import { setIsAdmin } from '@/utils/cookie'
+import { setIsAdmin, setUserName } from '@/utils/cookie'
 
 const router = useRouter()
 
@@ -91,9 +91,11 @@ onAuthorize((queryResult): void => {
   
   setIsAdmin(true)
 
+  setUserName(queryResult.data.adminsList.items[0].name)
+
   showSuccessMessage('Вы авторизированы!')
 
-  router.push({ name: 'AdminProfilePage' })
+  router.push({ name: 'UsersPage' })
 })
 
 const handleUserAuthorize = (form: FormInstance | undefined): void => {

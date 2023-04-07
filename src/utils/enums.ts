@@ -7,7 +7,6 @@ export enum LKPages {
 }
 
 export enum AdminLKPages {
-    PROFILE = 'AdminProfilePage',
-    USERS = 'UsersProfilePage',
+    USERS = 'UsersPage',
     STATISTIC = 'AdminStatisticPage',
 }

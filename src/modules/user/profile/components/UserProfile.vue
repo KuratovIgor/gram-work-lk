@@ -1,5 +1,8 @@
 <template>
-  <div class="profile">
+  <div
+    v-loading="loading"
+    class="profile"
+  >
     <el-row justify="space-between">
       <el-col :span="3">
         <el-upload
@@ -94,18 +97,12 @@ const variables = reactive({
 const profile = ref<ProfileType>({ email: '', lastname: '', middlename: '', name: '', phone: '' })
 const imageUrl = ref('')
 
-const { result } = useQuery(getProfileQuery(), variables)
+const { loading, onResult: onGetProfile } = useQuery(getProfileQuery(), variables)
 
-watch(() => result.value, (value) => {
-  profile.value.name = value.auth_usersList.items[0].name
+onGetProfile((queryResult): void => {
+  if (queryResult.loading || !queryResult.data.auth_usersList.items.length) return
 
-  profile.value.lastname = value.auth_usersList.items[0].lastname
-
-  profile.value.middlename = value.auth_usersList.items[0].middlename
-
-  profile.value.email = value.auth_usersList.items[0].email
-
-  profile.value.phone = value.auth_usersList.items[0].phone
+  profile.value = Object.assign({}, queryResult.data.auth_usersList.items[0])
 })
 
 const handleAvatarSuccess = (file: UploadFile): void => {

@@ -49,7 +49,7 @@ import SalaryChart from '@/modules/user/statistic/components/salaryStatistic/Sal
 import { useQuery } from '@vue/apollo-composable'
 import { getSalaries } from '@/modules/user/statistic/api/queries/salary.graphql'
 import { onMounted, reactive, ref, watch } from 'vue'
-import { GLSalariesType } from '@/modules/user/statistic/types/graphql.types'
+import type { GLSalariesType } from '@/modules/user/statistic/types/graphql.types'
 import type { SalaryType } from '@/modules/user/statistic/types/salary.type'
 import SalaryResponseChart from '@/modules/user/statistic/components/salaryStatistic/SalaryResponseChart.vue'
 import SalaryInvitationChart from '@/modules/user/statistic/components/salaryStatistic/SalaryInvitationChart.vue'
@@ -69,16 +69,24 @@ const variables = reactive({
 
 const salaries = ref<SalaryType[]>([])
 
-const { result, loading } = useQuery(getSalaries(), variables)
+const { loading, onResult: onGetSalaries } = useQuery(getSalaries(), variables)
 
-watch(() => result.value, (value): void => {
-  value.response_historiesList.items.forEach((item: GLSalariesType): void => {
+onGetSalaries((queryResult): void => {
+  if (queryResult.loading || !queryResult.data.response_historiesList.items.length) return
+
+  salaries.value = []
+
+  queryResult.data.response_historiesList.items.forEach((item: GLSalariesType): void => {
     salaries.value.push({
       salaryFrom: Number(item.salary_from),
       salaryTo: Number(item.salary_to),
       status: item.status,
     })
   })
+})
+
+watch(() => props.userId, () => {
+  variables.userId = props.userId
 })
 
 onMounted((): void => {

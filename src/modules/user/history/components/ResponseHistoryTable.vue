@@ -116,9 +116,7 @@ const filters: StatusFilterType[] = [
 ]
 
 onGetHistory((queryResult): void => {
-  if (queryResult.loading) return
-
-  if (!queryResult.data.response_historiesList.items.length) return
+  if (queryResult.loading || !queryResult.data.response_historiesList.items.length) return
 
   history.value = []
 

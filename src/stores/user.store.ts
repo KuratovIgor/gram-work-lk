@@ -4,6 +4,7 @@ export const useUserStore = defineStore('user', {
     state: () => ({
         isAuthorized: false,
         isAdmin: false,
+        userName: '',
     }),
     actions: {
         setIsAuthorized(isAuth: boolean) {
@@ -11,6 +12,9 @@ export const useUserStore = defineStore('user', {
         },
         setIsAdmin(isAdmin: boolean) {
             this.isAdmin = isAdmin
+        },
+        setUserName(userName: string) {
+            this.userName = userName
         },
     },
 })

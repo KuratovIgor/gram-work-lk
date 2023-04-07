@@ -4,6 +4,12 @@
       GramWork
     </p>
     <p
+      v-if="userStore.isAdmin"
+      class="header__name"
+    >
+      Привет, {{ userStore.userName }}!
+    </p>
+    <p
       v-if="userStore.isAuthorized"
       class="header__logout"
       @click="handleLogout"
@@ -14,7 +20,14 @@
 </template>
 
 <script lang="ts" setup>
-import { removeChatId, removeAccessToken, removeRefreshToken } from '@/utils/cookie'
+import {
+  removeChatId,
+  removeAccessToken,
+  removeRefreshToken,
+  removeUserId,
+  removeIsAdmin,
+  removeUserName
+} from '@/utils/cookie'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
 
@@ -29,7 +42,17 @@ const handleLogout = (): void => {
 
   removeRefreshToken()
 
+  removeUserId()
+
+  removeIsAdmin()
+
+  removeUserName()
+
   userStore.setIsAuthorized(false)
+
+  userStore.setIsAdmin(false)
+
+  userStore.setUserName('')
 
   router.push({ name: 'AuthPage' })
 }
@@ -46,12 +69,13 @@ const handleLogout = (): void => {
   color: $color--primary;
   padding: 10px 20px;
 
-  &__logo {
-    width: 50px;
-  }
-
   &__title {
     font-size: 26px;
+  }
+
+  &__name {
+    font-size: 20px;
+    color: $color--danger;
   }
 
   &__logout {

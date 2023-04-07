@@ -142,18 +142,20 @@ const {
   onDone: onSuccessSaving
 } = useMutation(saveFilters())
 
-onResultGetting((resultQuery): void => {
-  name.value = resultQuery.data.default_filter.search
+onResultGetting((queryResult): void => {
+  if (queryResult.loading) return
 
-  salary.value = resultQuery.data.default_filter.salary
+  name.value = queryResult.data.default_filter.search
 
-  area.value = resultQuery.data.default_filter.area
+  salary.value = queryResult.data.default_filter.salary
 
-  areaId = resultQuery.data.default_filter.area_id
+  area.value = queryResult.data.default_filter.area
 
-  schedule.value = resultQuery.data.default_filter.schedule
+  areaId = queryResult.data.default_filter.area_id
 
-  experience.value = resultQuery.data.default_filter.experience
+  schedule.value = queryResult.data.default_filter.schedule
+
+  experience.value = queryResult.data.default_filter.experience
 })
 
 onErrorSaving((): void => {
