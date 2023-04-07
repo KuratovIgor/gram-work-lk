@@ -52,4 +52,12 @@
   height: 1px;
   border: 1px solid #dcdfe6;
   margin: 20px 0;
+
+  @media (max-width: 768px) {
+    margin: 15px 0;
+  }
+  
+  @media (max-width: 376px) {
+    margin: 10px 0;
+  }
 }

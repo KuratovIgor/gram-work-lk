@@ -13,7 +13,7 @@
       class="auth-form-admin__form"
     >
       <el-form-item
-        class="mb-30"
+        :class="inputMargin"
         prop="login"
       >
         <el-input v-model="authForm.login">
@@ -38,7 +38,7 @@
     <el-button
       class="auth-form-admin__button"
       type="danger"
-      size="large"
+      :size="buttonSize"
       round
       :loading="loading"
       @click="handleUserAuthorize(ruleAuthForm)"
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { computed, getCurrentInstance, reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import type { AuthType } from '@/modules/authForm/types/auth.type'
 import { showErrorMessage, showSuccessMessage } from '@/utils/message'
@@ -58,6 +58,10 @@ import { getAdminQuery } from '@/modules/authForm/api/queries/auth.graphql'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
 import { setIsAdmin, setUserName } from '@/utils/cookie'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const inputMargin = computed(() => screenSize.value === 'xs' || !screenSize.value ? 'mb-15' : 'mb-30')
+const buttonSize = computed(() => !screenSize.value ? 'default' : 'large')
 
 const router = useRouter()
 
@@ -133,12 +137,24 @@ const handleUserAuthorize = (form: FormInstance | undefined): void => {
     font-weight: 700;
     font-size: 30px;
     color: $color--primary;
+
+    @media (max-width: $screen--sm) {
+      font-size: 25px
+    }
   }
 
   &__form {
     margin: 0 auto 40px;
     width: 100%;
     max-width: 400px;
+
+    @media (max-width: $screen--sm) {
+      margin: 0 auto 20px;
+    }
+    
+    @media (max-width: $screen--xs) {
+      margin: 0 auto 10px;
+    }
   }
 
   &__button {

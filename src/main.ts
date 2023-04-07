@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import 'virtual:svg-icons-register'
 import 'virtual:fonts.css'
 import './permissions'
+import screen from '@/utils/screenVariables'
 
 import App from './App.vue'
 import router from './router'
@@ -47,3 +48,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.mount('#app')
+
+app.config.globalProperties.$screen = screen

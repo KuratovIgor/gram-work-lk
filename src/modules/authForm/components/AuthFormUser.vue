@@ -10,21 +10,22 @@
       <p class="auth-form-user__title">
         Привет!
       </p>
-      <p class="mb-20">
+      <p :class="contentMargin">
         Для входа в личный кабинет тебе необходимо ввести код, который тебе дал бот.
       </p>
-      <p class="mb-40">
+      <p>
         После ввода нажми кнопку "Авторизироваться" и вуаля!.
       </p>
 
       <el-input
         v-model="chatId"
-        class="mb-20"
+        :class="inputMargin"
+        :size="inputSize"
       />
 
       <el-button
         type="primary"
-        size="large"
+        :size="buttonSize"
         round
         :loading="loading"
         @click="handleUserLogin"
@@ -36,13 +37,19 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, getCurrentInstance, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { getUserQuery } from '@/modules/authForm/api/queries/auth.graphql'
 import { setAccessToken, setChatId, setRefreshToken, setUserId } from '@/utils/cookie'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
 import { showErrorMessage, showSuccessMessage } from '@/utils/message'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const contentMargin = computed(() => screenSize.value === 'xs' || !screenSize.value ? 'mb-10' : 'mb-20')
+const inputMargin = computed(() => screenSize.value === 'xs' || !screenSize.value ? 'mt-20 mb-10' : 'mt-40 mb-20')
+const inputSize = computed(() => !screenSize.value ? 'small' : 'default')
+const buttonSize = computed(() => !screenSize.value ? 'default' : 'large')
 
 const router = useRouter()
 
@@ -102,18 +109,40 @@ const handleUserLogin = (): void => {
     font-weight: 700;
     font-size: 30px;
     color: $color--primary;
+
+    @media (max-width: $screen--sm) {
+      font-size: 25px
+    }
   }
 
   &__content {
     font-size: 20px;
     text-align: center;
     padding: 0 40px;
+
+    @media (max-width: $screen--sm) {
+      font-size: 16px
+    }
+
+    @media (max-width: $screen--xs) {
+      padding: 0 10px;
+      font-size: 14px
+    }
   }
 
   &__title {
+    margin-bottom: 35px;
     font-weight: 700;
     font-size: 25px;
-    margin-bottom: 35px;
+
+    @media (max-width: $screen--sm) {
+      margin-bottom: 15px;
+      font-size: 20px
+    }
+
+    @media (max-width: $screen--xs) {
+      margin-bottom: 10px;
+    }
   }
 }
 </style>

@@ -6,55 +6,91 @@
     <el-table-column
       prop="chat_id"
       label="chat id"
-    />
-    <el-table-column
-      prop="user_id"
-      label="user id"
-    />
+    >
+      <template #default="scope">
+        <el-text truncated>
+          {{ scope.row.chat_id }}
+        </el-text>
+      </template>
+    </el-table-column>
     <el-table-column
       prop="name"
       label="Имя"
-    />
+    >
+      <template #default="scope">
+        <el-text truncated>
+          {{ scope.row.name }}
+        </el-text>
+      </template>
+    </el-table-column>
     <el-table-column
       prop="lastname"
       label="Фамилия"
-    />
-    <el-table-column
-      prop="middlename"
-      label="Отчество"
-    />
+    >
+      <template #default="scope">
+        <el-text truncated>
+          {{ scope.row.lastname }}
+        </el-text>
+      </template>
+    </el-table-column>
     <el-table-column
       prop="email"
       label="Email"
-    />
+    >
+      <template #default="scope">
+        <el-text truncated>
+          {{ scope.row.email }}
+        </el-text>
+      </template>
+    </el-table-column>
     <el-table-column
       prop="phone"
       label="Телефон"
-    />
+    >
+      <template #default="scope">
+        <el-text truncated>
+          {{ scope.row.phone }}
+        </el-text>
+      </template>
+    </el-table-column>
     <el-table-column
-      label="Статистика"
       align="center"
+      :width="columnWidth"
     >
       <template #default="scope">
         <el-button
           type="success"
           round
-          icon="histogram"
+          :size="buttonSize"
           @click="handleStatisticOpen(scope.row.user_id)"
-        />
+        >
+          <p v-if="screenSize === 'lg'">
+            Статистика
+          </p>
+          <el-icon v-else>
+            <histogram />
+          </el-icon>
+        </el-button>
       </template>
     </el-table-column>
     <el-table-column
-      label="Отклики"
       align="center"
+      :width="columnWidth"
     >
       <template #default="scope">
         <el-button
           type="primary"
           round
-          icon="checked"
+          :size="buttonSize"
           @click="handleResponsesOpen(scope.row.user_id)"
-        />
+        >
+          <p v-if="screenSize === 'lg'">
+            Отклики
+          </p>
+          <el-icon v-else>
+            <checked />
+          </el-icon>
+        </el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -63,6 +99,12 @@
 <script lang="ts" setup>
 import type { GLUserType } from '@/modules/admin/users/types/graphql.type'
 import { useRouter } from 'vue-router'
+import { computed, getCurrentInstance } from 'vue'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const buttonSize = computed(() => screenSize.value === 'lg' ? 'default' : 'small')
+const columnWidth = computed(() => screenSize.value === 'lg' ? '' : 50)
+
 
 const router = useRouter()
 

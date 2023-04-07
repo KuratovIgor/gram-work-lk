@@ -16,5 +16,6 @@ import { AuthForm } from '@/modules/authForm/index'
   align-items: flex-start;
   justify-content: center;
   margin-top: 80px;
+  padding: 0px 20px;
 }
 </style>

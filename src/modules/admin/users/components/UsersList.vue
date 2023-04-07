@@ -2,6 +2,7 @@
   <el-tabs
     v-model="activeTab"
     v-loading="usersLoading"
+    :style="{ width: scree }"
   >
     <el-tab-pane label="Пользователи">
       <users-list-table
