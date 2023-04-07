@@ -1,8 +1,19 @@
 <template>
   <div class="header">
-    <p class="header__title">
+    <p
+      v-if="!isMobile || !userStore.isAuthorized"
+      class="header__title"
+    >
       GramWork
     </p>
+    <el-icon
+      v-else
+      size="30"
+      @click="handleDrawerOpen"
+    >
+      <burger />
+    </el-icon>
+
     <p
       v-if="userStore.isAdmin"
       class="header__name"
@@ -30,10 +41,20 @@ import {
 } from '@/utils/cookie'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
+import { computed, getCurrentInstance, ref } from 'vue'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
 
 const userStore = useUserStore()
 
 const router = useRouter()
+
+const emit = defineEmits(['drawer'])
+
+const handleDrawerOpen = (): void => {
+  emit('drawer')
+}
 
 const handleLogout = (): void => {
   removeChatId()
@@ -76,6 +97,10 @@ const handleLogout = (): void => {
   &__name {
     font-size: 20px;
     color: $color--danger;
+
+    @media (max-width: $screen--sm) {
+      font-size: 15px;
+    }
   }
 
   &__logout {
@@ -84,6 +109,10 @@ const handleLogout = (): void => {
 
     &:hover {
       color: $color--primary-light;
+    }
+
+    @media (max-width: $screen--sm) {
+      font-size: 15px;
     }
   }
 }

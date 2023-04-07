@@ -105,7 +105,6 @@ const screenSize = computed(() => getCurrentInstance()?.appContext.config.global
 const buttonSize = computed(() => screenSize.value === 'lg' ? 'default' : 'small')
 const columnWidth = computed(() => screenSize.value === 'lg' ? '' : 50)
 
-
 const router = useRouter()
 
 type Props = {

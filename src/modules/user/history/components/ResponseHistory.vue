@@ -1,7 +1,7 @@
 <template>
   <el-tabs>
     <el-tab-pane label="История">
-      <response-history-table :user-id="userId" />
+      <response-history-tab :user-id="userId" />
     </el-tab-pane>
     <el-tab-pane label="Статистика">
       <response-history-statistic :user-id="userId" />
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import ResponseHistoryTable from '@/modules/user/history/components/ResponseHistoryTable.vue'
+import ResponseHistoryTab from '@/modules/user/history/components/ResponseHistoryTab.vue'
 import { ResponseHistoryStatistic } from '@/modules/user/statistic'
 import { getUserId } from '@/utils/cookie'
 

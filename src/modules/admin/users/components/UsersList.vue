@@ -2,11 +2,17 @@
   <el-tabs
     v-model="activeTab"
     v-loading="usersLoading"
-    :style="{ width: scree }"
   >
     <el-tab-pane label="Пользователи">
       <users-list-table
+        v-if="!isMobile"
         class="mb-20"
+        :users="paginatedUsers"
+        @open-history="handleHistoryTableOpen"
+      />
+      <users-list-cards
+        v-else
+        class="mb-40"
         :users="paginatedUsers"
         @open-history="handleHistoryTableOpen"
       />
@@ -24,7 +30,7 @@
         <div class="mb-20 title">
           {{ chosenUser }}
         </div>
-        <response-history-table :user-id="userId" />
+        <response-history-tab :user-id="userId" />
       </template>
       <div
         v-else
@@ -37,13 +43,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, getCurrentInstance, onMounted, ref } from 'vue'
 import type { GLUserType } from '@/modules/admin/users/types/graphql.type'
 import UsersListTable from '@/modules/admin/users/components/UsersListTable.vue'
 import { useQuery } from '@vue/apollo-composable'
 import { getUsersQuery } from '@/modules/admin/users/api/queries/users.query'
 import { showErrorMessage } from '@/utils/message'
-import { ResponseHistoryTable } from '@/modules/user/history'
+import { ResponseHistoryTab } from '@/modules/user/history'
+import UsersListCards from '@/modules/admin/users/components/UsersListCards.vue'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
 
 const { loading: usersLoading, onResult: onGetUsers, refetch } = useQuery(getUsersQuery())
 
