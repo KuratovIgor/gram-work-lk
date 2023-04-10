@@ -10,7 +10,7 @@
         :users="paginatedUsers"
         @open-history="handleHistoryTableOpen"
       />
-      <users-list-cards
+      <users-cards
         v-else
         class="mb-40"
         :users="paginatedUsers"
@@ -27,7 +27,7 @@
     </el-tab-pane>
     <el-tab-pane label="История откликов">
       <template v-if="userId">
-        <div class="mb-20 title">
+        <div class="title">
           {{ chosenUser }}
         </div>
         <response-history-tab :user-id="userId" />
@@ -50,7 +50,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { getUsersQuery } from '@/modules/admin/users/api/queries/users.query'
 import { showErrorMessage } from '@/utils/message'
 import { ResponseHistoryTab } from '@/modules/user/history'
-import UsersListCards from '@/modules/admin/users/components/UsersListCards.vue'
+import UsersCards from '@/modules/admin/users/components/UsersCards.vue'
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')

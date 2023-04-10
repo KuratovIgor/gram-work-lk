@@ -1,14 +1,14 @@
 <template>
   <div class="title">
-    {{ resume.title }}, {{ resume.salary }} руб.
+    {{ props.resume.title }}, {{ props.resume.salary }} руб.
   </div>
   <div class="d-f fw-w">
     <el-tag
-      v-for="(skill, index) in resume.skills"
+      v-for="(skill, index) in props.resume.skills"
       :key="index"
       class="mr-5 mb-20"
       :type="getSkillType()"
-      size="large"
+      :size="tagSize"
       effect="dark"
       round
     >
@@ -18,7 +18,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ResumeType } from '@/modules/user/resume/types/resumes.type'
+import type { ResumeType } from '@/modules/user/resume/types/resumes.type'
+import { computed, getCurrentInstance } from 'vue'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
+const tagSize = computed(() => isMobile.value ? 'default' : 'large')
 
 type Props = {
   resume: ResumeType

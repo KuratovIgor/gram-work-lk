@@ -50,10 +50,18 @@ const getCorrectDate = (date: string): string => {
 
   &__card {
     font-size: 18px;
+
+    @media (max-width: $screen--sm) {
+      font-size: 14px;
+    }
   }
 
   &__card-title {
     font-size: 20px;
+
+    @media (max-width: $screen--sm) {
+      font-size: 15px;
+    }
   }
 }
 </style>

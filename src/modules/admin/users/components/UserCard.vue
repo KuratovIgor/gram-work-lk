@@ -1,10 +1,9 @@
 <template>
-  <el-card>
+  <mobile-card>
     <template #header>
       {{ props.user.lastname }} {{ props.user.name }} {{ props.user.middlename }}
     </template>
-
-    <template #default>
+    <template #content>
       <el-button
         type="success"
         :size="buttonSize"
@@ -21,38 +20,24 @@
       >
         Отлики
       </el-button>
-
-      <el-collapse v-model="isMoreInfo">
-        <el-collapse-item>
-          <template #title>
-            <div class="color-info">
-              Подробнее
-            </div>
-          </template>
-
-          <div class="text-bold">
-            Эл. почта:
-          </div>
-          <div class="mb-10">
-            {{ props.user.email }}
-          </div>
-
-          <div class="text-bold">
-            Телефон:
-          </div>
-          <div>
-            {{ props.user.phone ? props.user.phone : 'Отсутствует' }}
-          </div>
-        </el-collapse-item>
-      </el-collapse>
     </template>
-  </el-card>
+    <template #collapse-title>
+      <div class="color-info">
+        Подробнее
+      </div>
+    </template>
+    <template #collapse-content>
+      <user-card-content :user="props.user" />
+    </template>
+  </mobile-card>
 </template>
 
 <script lang="ts" setup>
 import type { GLUserType } from '@/modules/admin/users/types/graphql.type'
 import { computed, getCurrentInstance, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import MobileCard from '@/components/mobileCard/MobileCard.vue'
+import UserCardContent from '@/modules/admin/users/components/UserCardContent.vue'
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const buttonSize = computed(() => !screenSize.value ? 'small' : 'default')
@@ -67,8 +52,6 @@ const emit = defineEmits(['open-history'])
 const props = withDefaults(defineProps<Props>(), {
   user: undefined,
 })
-
-const isMoreInfo = ref(false)
 
 const handleStatisticOpen = (userId: string): void => {
   router.push({

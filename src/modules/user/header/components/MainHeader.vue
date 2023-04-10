@@ -6,13 +6,12 @@
     >
       GramWork
     </p>
-    <el-icon
+    <img
       v-else
-      size="30"
+      class="header__burger"
+      src="/src/assets/icons/burger.svg"
       @click="handleDrawerOpen"
-    >
-      <burger />
-    </el-icon>
+    />
 
     <p
       v-if="userStore.isAdmin"
@@ -92,6 +91,10 @@ const handleLogout = (): void => {
 
   &__title {
     font-size: 26px;
+  }
+
+  &__burger {
+    width: 30px;
   }
 
   &__name {

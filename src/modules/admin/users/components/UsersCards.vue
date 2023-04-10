@@ -1,5 +1,5 @@
 <template>
-  <users-list-card
+  <user-card
     v-for="user in props.users"
     :key="user.user_id"
     :user="user"
@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import type { GLUserType } from '@/modules/admin/users/types/graphql.type'
-import UsersListCard from '@/modules/admin/users/components/UsersListCard.vue'
+import UserCard from '@/modules/admin/users/components/UserCard.vue'
 
 type Props = {
   users: GLUserType[]

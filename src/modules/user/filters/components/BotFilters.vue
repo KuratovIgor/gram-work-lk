@@ -1,62 +1,76 @@
 <template>
-  <div v-loading="gettingLoading">
-    <el-row>
-      <el-col
-        class="mb-40"
-        :span="6"
+  <div
+    v-loading="gettingLoading"
+    class="bot-filters"
+  >
+    <div class="bot-filters__item">
+      <div class="title">
+        Должность
+      </div>
+      <el-input
+        v-model="name"
+        class="bot-filters__field"
+        placeholder="Укажите должность"
+      />
+    </div>
+    <div class="bot-filters__item">
+      <div class="title">
+        Зарплата
+      </div>
+      <el-input
+        v-model="salary"
+        class="bot-filters__field"
+        placeholder="Укажите зарплату"
+      />
+    </div>
+    <div class="bot-filters__item">
+      <div class="title">
+        Город
+      </div>
+      <el-select
+        v-model="area"
+        class="bot-filters__field"
+        filterable
+        remote
+        :remote-method="getAreas"
+        :loading="areasLoading"
+        placeholder="Выберите город"
+        @change="handleAreaChange"
       >
-        <div class="title">
-          Должность
-        </div>
-        <el-input
-          v-model="name"
-          placeholder="Укажите должность"
+        <el-option
+          v-for="(areaItem, index) in areas"
+          :key="index"
+          :label="areaItem.text"
+          :value="areaItem"
         />
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col
-        class="mb-40"
-        :span="6"
-      >
-        <div class="title">
-          Зарплата
-        </div>
-        <el-input
-          v-model="salary"
-          placeholder="Укажите зарплату"
-        />
-      </el-col>
-    </el-row>
-    <el-row class="mb-40">
-      <el-col :span="6">
-        <div class="title">
-          Город
-        </div>
-        <el-select
-          v-model="area"
-          filterable
-          remote
-          :remote-method="getAreas"
-          :loading="areasLoading"
-          placeholder="Выберите город"
-          @change="handleAreaChange"
+      </el-select>
+    </div>
+    <div class="bot-filters__item">
+      <div class="title">
+        График
+      </div>
+      <el-radio-group v-model="schedule">
+        <div
+          v-if="isMobile"
+          class="d-f fd-c"
         >
-          <el-option
-            v-for="(areaItem, index) in areas"
-            :key="index"
-            :label="areaItem.text"
-            :value="areaItem"
-          />
-        </el-select>
-      </el-col>
-    </el-row>
-    <el-row class="mb-40">
-      <el-col :span="10">
-        <div class="title">
-          График
+          <el-radio label="fullDay">
+            Полный день
+          </el-radio>
+          <el-radio label="shift">
+            Сменный график
+          </el-radio>
+          <el-radio label="flexible">
+            Гибкий график
+          </el-radio>
+          <el-radio label="remote">
+            Удаленная работа
+          </el-radio>
+          <el-radio label="flyInFlyOut">
+            Вахтовый метод
+          </el-radio>
         </div>
-        <el-radio-group v-model="schedule">
+        <template v-else>
           <el-radio-button label="fullDay">
             Полный день
           </el-radio-button>
@@ -72,15 +86,32 @@
           <el-radio-button label="flyInFlyOut">
             Вахтовый метод
           </el-radio-button>
-        </el-radio-group>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        <div class="title">
-          Опыт работы
+        </template>
+      </el-radio-group>
+    </div>
+    <div>
+      <div class="title">
+        Опыт работы
+      </div>
+      <el-radio-group v-model="experience">
+        <div
+          v-if="isMobile"
+          class="d-f fd-c"
+        >
+          <el-radio label="noExperience">
+            Нет опыта
+          </el-radio>
+          <el-radio label="between1And3">
+            От 1 года до 3 лет
+          </el-radio>
+          <el-radio label="between3And6">
+            От 3 лет до 6 лет
+          </el-radio>
+          <el-radio label="moreThan6">
+            Более 6 лет
+          </el-radio>
         </div>
-        <el-radio-group v-model="experience">
+        <template v-else>
           <el-radio-button label="noExperience">
             Нет опыта
           </el-radio-button>
@@ -93,35 +124,33 @@
           <el-radio-button label="moreThan6">
             Более 6 лет
           </el-radio-button>
-        </el-radio-group>
-      </el-col>
-    </el-row>
+        </template>
+      </el-radio-group>
+    </div>
     <div class="horizontal-divider" />
-    <el-row>
-      <el-col
-        :span="2"
-        :offset="22"
+    <div class="d-f jc-fe">
+      <el-button
+        type="success"
+        :loading="savingLoading"
+        @click="handleFiltersSave"
       >
-        <el-button
-          type="success"
-          :loading="savingLoading"
-          @click="handleFiltersSave"
-        >
-          Сохранить
-        </el-button>
-      </el-col>
-    </el-row>
+        Сохранить
+      </el-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import { getAllAreas } from '@/helpers/area.helper'
 import type { AreaType } from '@/types/area.type'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { getFilters, saveFilters } from '@/modules/user/filters/api/mutations/filters.graphql'
 import { showErrorMessage, showSuccessMessage } from '@/utils/message'
 import { getChatId } from '@/utils/cookie'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
 
 const name = ref('')
 const salary = ref('')
@@ -200,3 +229,24 @@ onMounted((): void => {
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.bot-filters {
+  &__item {
+    margin-bottom: 40px;
+
+    @media (max-width: $screen--sm) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__field {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  @media (max-width: $screen--sm) {
+    padding: 10px;
+  }
+}
+</style>

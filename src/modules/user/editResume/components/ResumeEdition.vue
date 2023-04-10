@@ -4,7 +4,10 @@
       v-loading="loading"
       justify="space-between"
     >
-      <el-col :span="3">
+      <el-col
+        :span="avatarColSpan"
+        class="mb-20"
+      >
         <el-upload
           :show-file-list="false"
           action="#"
@@ -24,32 +27,41 @@
           </el-icon>
         </el-upload>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="contentColSpan">
         <el-form
           ref="resumeEditionForm"
           :model="resumeEditionFormData"
         >
           <el-row justify="space-between">
-            <el-col :span="7">
-              <div class="mb-10">
+            <el-col :span="contentItemSpan">
+              <div class="mb-10 title">
                 Обо мне
               </div>
               <el-form-item prop="lastName">
-                <el-input v-model="resumeEditionFormData.lastName">
+                <el-input
+                  v-model="resumeEditionFormData.lastName"
+                  class="w-100"
+                >
                   <template #prefix>
                     Фамилия
                   </template>
                 </el-input>
               </el-form-item>
               <el-form-item prop="firstName">
-                <el-input v-model="resumeEditionFormData.firstName">
+                <el-input
+                  v-model="resumeEditionFormData.firstName"
+                  class="w-100"
+                >
                   <template #prefix>
                     Имя
                   </template>
                 </el-input>
               </el-form-item>
               <el-form-item prop="middleName">
-                <el-input v-model="resumeEditionFormData.middleName">
+                <el-input
+                  v-model="resumeEditionFormData.middleName"
+                  class="w-100"
+                >
                   <template #prefix>
                     Отчество
                   </template>
@@ -58,6 +70,7 @@
               <el-form-item prop="age">
                 <el-date-picker
                   v-model="resumeEditionFormData.birthDate"
+                  class="w-100"
                   type="date"
                   format="YYYY-MM-DD"
                   value-format="YYYY-MM-DD"
@@ -69,6 +82,7 @@
               >
                 <el-select
                   v-model="resumeEditionFormData.area"
+                  class="w-100"
                   filterable
                   remote
                   :remote-method="getAreas"
@@ -87,11 +101,14 @@
                   />
                 </el-select>
               </el-form-item>
-              <div class="mb-10">
+              <div class="mb-10 title">
                 Проф. информация
               </div>
               <el-form-item prop="age">
-                <el-input v-model="resumeEditionFormData.title">
+                <el-input
+                  v-model="resumeEditionFormData.title"
+                  class="w-100"
+                >
                   <template #prefix>
                     Должность
                   </template>
@@ -101,18 +118,22 @@
                 class="mb-30"
                 prop="age"
               >
-                <el-input v-model="resumeEditionFormData.salary">
+                <el-input
+                  v-model="resumeEditionFormData.salary"
+                  class="w-100"
+                >
                   <template #prefix>
                     Зарплата
                   </template>
                 </el-input>
               </el-form-item>
-              <div class="mb-10">
+              <div class="mb-10 title">
                 Образование
               </div>
               <el-form-item prop="level">
                 <el-select
                   v-model="resumeEditionFormData.education.level.name"
+                  class="w-100"
                   @change="handleEducationLevelChange"
                 >
                   <template #prefix>
@@ -127,7 +148,10 @@
                 </el-select>
               </el-form-item>
               <el-form-item prop="education">
-                <el-input v-model="resumeEditionFormData.education.name">
+                <el-input
+                  v-model="resumeEditionFormData.education.name"
+                  class="w-100"
+                >
                   <template #prefix>
                     Заведение
                   </template>
@@ -139,6 +163,7 @@
               >
                 <el-date-picker
                   v-model="resumeEditionFormData.education.year"
+                  class="w-100"
                   type="year"
                   format="YYYY"
                   value-format="YYYY"
@@ -146,8 +171,15 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="14">
-              <div class="mb-10">
+            <el-col
+              v-if="!isMobile"
+              :span="1"
+              class="d-f jc-c"
+            >
+              <div class="vertical-divider" />
+            </el-col>
+            <el-col :span="contentItemSpan">
+              <div class="mb-10 title">
                 Ключевые навыки
               </div>
               <el-tag
@@ -155,7 +187,7 @@
                 :key="index"
                 class="mr-5 mb-20"
                 :type="getSkillType()"
-                size="large"
+                :size="tagSize"
                 effect="dark"
                 round
                 closable
@@ -163,150 +195,139 @@
               >
                 {{ skill }}
               </el-tag>
-              <el-row
-                class="w-50 mb-40"
-                justify="space-between"
-              >
-                <el-col :span="20">
-                  <el-form-item prop="age">
-                    <el-input
-                      v-model="skill"
-                      @keydown.enter="handleSkillAdd"
-                    />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="3">
+              <div class="mb-40 d-f">
+                <el-form-item prop="age">
+                  <el-input
+                    v-model="skill"
+                    class="w-100 mr-10"
+                    @keydown.enter="handleSkillAdd"
+                  />
+                </el-form-item>
+                <el-button
+                  class="add-button"
+                  type="primary"
+                  round
+                  @click="handleSkillAdd"
+                >
+                  +
+                </el-button>
+              </div>
+              <div>
+                <div class="mb-10 title">
+                  Опыт работы
+                </div>
+                <el-scrollbar height="400">
                   <el-button
                     class="add-button"
                     type="primary"
                     round
-                    @click="handleSkillAdd"
+                    @click="handleExperienceAdd"
                   >
                     +
                   </el-button>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="13">
-                  <div class="mb-10">
-                    Опыт работы
-                  </div>
-                  <el-scrollbar height="400">
-                    <el-button
-                      class="add-button"
-                      type="primary"
-                      round
-                      @click="handleExperienceAdd"
-                    >
-                      +
-                    </el-button>
-                    <div
-                      v-for="(experienceItem, index) in resumeEditionFormData.experience"
-                      :key="index"
-                      class="mb-20"
-                    >
-                      <div class="horizontal-divider" />
-                      <el-form-item prop="company">
-                        <el-select 
-                          v-model="experienceItem.company"
-                          filterable
-                          remote
-                          :remote-method="getCompanies"
-                          :loading="companiesLoading"
-                          placeholder="Выберите компанию"
-                          @change="handleCompanyChange($event, index)"
-                        >
-                          <template #prefix>
-                            Компания
-                          </template>
-                          <el-option
-                            v-for="company in companies"
-                            :key="company.id"
-                            :label="company.text"
-                            :value="company"
-                          />
-                        </el-select>
+                  <div
+                    v-for="(experienceItem, index) in resumeEditionFormData.experience"
+                    :key="index"
+                    class="mb-20"
+                  >
+                    <div class="horizontal-divider" />
+                    <el-form-item prop="company">
+                      <el-select 
+                        v-model="experienceItem.company"
+                        class="w-100"
+                        filterable
+                        remote
+                        :remote-method="getCompanies"
+                        :loading="companiesLoading"
+                        placeholder="Выберите компанию"
+                        @change="handleCompanyChange($event, index)"
+                      >
+                        <template #prefix>
+                          Компания
+                        </template>
+                        <el-option
+                          v-for="company in companies"
+                          :key="company.id"
+                          :label="company.text"
+                          :value="company"
+                        />
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item prop="position">
+                      <el-input
+                        v-model="experienceItem.position"
+                        class="w-100"
+                      >
+                        <template #prefix>
+                          Должность
+                        </template>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item prop="description">
+                      <el-input
+                        v-model="experienceItem.description"
+                        class="w-100"
+                        type="textarea"
+                      >
+                        <template #prefix>
+                          Описание
+                        </template>
+                      </el-input>
+                    </el-form-item>
+                    <div class="d-f jc-sb">
+                      <el-form-item prop="start">
+                        <el-date-picker
+                          v-model="experienceItem.start"
+                          class="w-100"
+                          format="YYYY-MM-DD"
+                          value-format="YYYY-MM-DD"
+                        />
                       </el-form-item>
-                      <el-form-item prop="position">
-                        <el-input v-model="experienceItem.position">
-                          <template #prefix>
-                            Должность
-                          </template>
-                        </el-input>
+                      <div> - </div>
+                      <el-form-item prop="end">
+                        <el-date-picker 
+                          v-model="experienceItem.end"
+                          class="w-100"
+                          format="YYYY-MM-DD"
+                          value-format="YYYY-MM-DD"
+                        />
                       </el-form-item>
-                      <el-form-item prop="description">
-                        <el-input
-                          v-model="experienceItem.description"
-                          type="textarea"
-                        >
-                          <template #prefix>
-                            Описание
-                          </template>
-                        </el-input>
-                      </el-form-item>
-                      <div class="d-f jc-sb">
-                        <el-form-item prop="start">
-                          <el-date-picker
-                            v-model="experienceItem.start"
-                            format="YYYY-MM-DD"
-                            value-format="YYYY-MM-DD"
-                          />
-                        </el-form-item>
-                        <div> - </div>
-                        <el-form-item prop="end">
-                          <el-date-picker 
-                            v-model="experienceItem.end"
-                            format="YYYY-MM-DD"
-                            value-format="YYYY-MM-DD"
-                          />
-                        </el-form-item>
-                      </div>
-                      <el-row>
-                        <el-col
-                          :offset="21"
-                          :span="3"
-                        >
-                          <el-button
-                            type="danger"
-                            icon="delete"
-                            round
-                            @click="handleExperienceRemove(index)"
-                          />
-                        </el-col>
-                      </el-row>
                     </div>
-                  </el-scrollbar>
-                </el-col>
-              </el-row>
+                    <div class="d-f jc-fe">
+                      <el-button
+                        type="danger"
+                        icon="delete"
+                        round
+                        @click="handleExperienceRemove(index)"
+                      />
+                    </div>
+                  </div>
+                </el-scrollbar>
+              </div>
             </el-col>
           </el-row>
         </el-form>
       </el-col>
     </el-row>
     <div class="horizontal-divider" />
-    <el-row>
-      <el-col
-        :span="2"
-        :offset="22"
+    <div class="d-f jc-fe">
+      <el-button
+        type="success"
+        :loading="editionLoading"
+        @click="handleResumeEdit"
       >
-        <el-button
-          type="success"
-          :loading="editionLoading"
-          @click="handleResumeEdit"
-        >
-          Сохранить
-        </el-button>
-      </el-col>
-    </el-row>
+        Сохранить
+      </el-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, getCurrentInstance, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { showErrorMessage } from '@/utils/message'
-import { ResumeType, EducationLevelType } from '@/modules/user/resume'
-import { FormInstance, UploadFile } from 'element-plus'
+import type { ResumeType, EducationLevelType } from '@/modules/user/resume'
+import type { FormInstance, UploadFile } from 'element-plus'
 import type { AreaType } from '@/types/area.type'
 import { EDUCATION_LEVELS } from '@/modules/user/editResume/constants/constants'
 import type { CompanyType } from '@/modules/user/editResume/types/company.type'
@@ -316,6 +337,14 @@ import { getSkillType } from '@/modules/user/editResume/helpers/skills.helper'
 import { resumeApi } from '@/api/resume.api'
 import { editResume, saveAvatar } from '@/modules/user/editResume/helpers/resumeEdition.hepler'
 import { parseResumeInfo } from '@/helpers/resume.helper'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
+const isTablet = computed(() => screenSize.value === 'sm')
+const avatarColSpan = computed(() => !isTablet.value && !isMobile.value ? 3 : 24)
+const contentColSpan = computed(() => !isTablet.value && !isMobile.value ? 20 : 24)
+const contentItemSpan = computed(() => isMobile.value ? 24 : 11)
+const tagSize = computed(() => isMobile.value || isTablet.value ? 'default' : 'large')
 
 const route = useRoute()
 

@@ -1,5 +1,5 @@
 <template>
-  <response-history-card
+  <history-card
     v-for="(item, index) in props.history"
     :key="index"
     :history-item="item"
@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import ResponseHistoryCard from '@/modules/user/history/components/ResponseHistoryCard.vue'
+import HistoryCard from '@/modules/user/history/components/HistoryCard.vue'
 import type { HistoryItemType } from '@/modules/user/history/types/history.type'
 
 type Props = {

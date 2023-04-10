@@ -4,7 +4,7 @@
     v-loading="loading"
     :history="paginatedHistory"
   />
-  <response-history-cards
+  <history-cards
     v-else
     v-loading="loading"
     :history="paginatedHistory"
@@ -26,7 +26,7 @@ import { getHistoryQuery } from '@/modules/user/history/api/queries/history.grap
 import ResponseHistoryTable from '@/modules/user/history/components/ResponseHistoryTable.vue'
 import type { GLHistoryItem } from '@/modules/user/history/types/graphql.types'
 import { getDateFormat } from '@/utils/date'
-import ResponseHistoryCards from '@/modules/user/history/components/ResponseHistoryCards.vue'
+import HistoryCards from '@/modules/user/history/components/HistoryCards.vue'
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')

@@ -13,11 +13,24 @@
 
 .resume-experience {
   .el-card {
+    margin: 0;
+    box-shadow: none;
+
+    &__header {
+      @media (max-width: 768px) {
+        padding: 10px;
+      }
+    }
+
     &__body {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      @media (max-width: 768px) {
+        padding: 10px;
+      }
     }
   }
 }

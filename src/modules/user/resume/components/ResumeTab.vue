@@ -1,31 +1,45 @@
 <template>
   <div class="resume">
     <el-row justify="space-between">
-      <el-col :span="13">
-        <resume-tab-user :resume="resume" />
+      <el-col :span="leftColSpan">
+        <resume-tab-user :resume="props.resume" />
+        <div
+          v-if="!isDesktop"
+          class="horizontal-divider"
+        />
       </el-col>
       <el-col :span="1">
-        <div class="vertical-divider" />
+        <div 
+          v-if="isDesktop"
+          class="vertical-divider"
+        />
       </el-col>
-      <el-col :span="10">
-        <resume-tab-position :resume="resume" />
+      <el-col :span="rightColSpan">
+        <resume-tab-position :resume="props.resume" />
       </el-col>
     </el-row>
 
     <div class="horizontal-divider" />
     
     <el-row justify="space-between">
-      <el-col :span="13">
+      <el-col :span="leftColSpan">
         <resume-tab-experience
           class="pr-40"
-          :experience="resume.experience"
+          :experience="props.resume.experience"
+        />
+        <div
+          v-if="!isDesktop"
+          class="horizontal-divider"
         />
       </el-col>
       <el-col :span="1">
-        <div class="vertical-divider" />
+        <div 
+          v-if="isDesktop"
+          class="vertical-divider"
+        />
       </el-col>
-      <el-col :span="10">
-        <resume-tab-education :education="resume.education" />
+      <el-col :span="rightColSpan">
+        <resume-tab-education :education="props.resume.education" />
       </el-col>
     </el-row>
 
@@ -42,7 +56,7 @@
       <el-button
         type="primary"
         icon="download"
-        @click="handleResumeDownload(resume.download, resume.title)"
+        @click="handleResumeDownload(props.resume.download, props.resume.title)"
       >
         Скачать
       </el-button>
@@ -58,6 +72,12 @@ import ResumeTabUser from '@/modules/user/resume/components/ResumeTabUser.vue'
 import ResumeTabPosition from '@/modules/user/resume/components/ResumeTabPosition.vue'
 import ResumeTabEducation from '@/modules/user/resume/components/ResumeTabEducation.vue'
 import { useRouter } from 'vue-router'
+import { computed, getCurrentInstance } from 'vue'
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isDesktop = computed(() => screenSize.value === 'lg')
+const leftColSpan = computed(() => isDesktop.value ? 13 : 24)
+const rightColSpan = computed(() => isDesktop.value ? 10 : 24)
 
 const router = useRouter()
 
