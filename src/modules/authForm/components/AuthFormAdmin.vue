@@ -78,7 +78,8 @@ const authFormRules = reactive<FormRules>({
   password: { required: true, message: 'Введите пароль', trigger: 'blur' },
 })
 
-const { loading, variables, onResult: onAuthorize, refetch } = useQuery(getAdminQuery(), { login: '', password: '' })
+const { loading, variables, onResult: onAuthorize, refetch } =
+    useQuery(getAdminQuery(), { login: undefined, password: undefined })
 
 onAuthorize((queryResult): void => {
   if (queryResult.loading) return

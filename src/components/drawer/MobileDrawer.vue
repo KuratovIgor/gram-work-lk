@@ -11,7 +11,7 @@
       </h1>
     </template>
     <sidebar-item
-      v-for="(sidebarItem, index) in USER_SIDEBAR_ITEMS"
+      v-for="(sidebarItem, index) in props.sidebarItems"
       :key="index"
       :page="sidebarItem.page"
       :label="sidebarItem.label"
@@ -30,16 +30,18 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import SidebarItem from '@/modules/user/sidebar/components/SidebarItem.vue'
-import { USER_SIDEBAR_ITEMS } from '@/modules/user/sidebar/constants/sidebar'
+import SidebarItem from '@/components/sidebar/SidebarItem.vue'
+import type { SidebarItemType } from '@/types/page.type'
 
 type Props = {
   isDrawerVisible: boolean,
+  sidebarItems: SidebarItemType[]
 }
 
 const emit = defineEmits(['close'])
 const props = withDefaults(defineProps<Props>(), {
   isDrawerVisible: false,
+  sidebarItems: undefined,
 })
 
 watch(() => props.isDrawerVisible, (value) => {

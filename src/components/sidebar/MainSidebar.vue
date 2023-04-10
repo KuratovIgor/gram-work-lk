@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <sidebar-item
-      v-for="(sidebarItem, index) in ADMIN_SIDEBAR_ITEMS"
+      v-for="(sidebarItem, index) in props.sidebarItems"
       :key="index"
       :page="sidebarItem.page"
       :label="sidebarItem.label"
@@ -12,8 +12,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ADMIN_SIDEBAR_ITEMS } from '@/modules/admin/sidebar/constants/sidebar'
-import SidebarItem from '@/modules/user/sidebar/components/SidebarItem.vue'
+import SidebarItem from '@/components/sidebar/SidebarItem.vue'
+import type { SidebarItemType } from '@/types/page.type'
+
+type Props = {
+  sidebarItems: SidebarItemType[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  sidebarItems: undefined,
+})
 </script>
 
 <style lang="scss" scoped>
