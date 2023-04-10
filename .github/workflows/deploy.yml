@@ -21,7 +21,7 @@ jobs:
 
       - name: Build and push container
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.IMAGE_NAME }} .
+          docker build -f containers/Dockerfile -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.IMAGE_NAME }} .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.IMAGE_NAME }}
 
   deploy:
