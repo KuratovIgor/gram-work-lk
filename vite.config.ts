@@ -46,12 +46,4 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    proxy: {
-      '/resumes': 'https://api.hh.ru',
-      '/areas': 'https://api.hh.ru',
-      '/suggests': 'https://api.hh.ru',
-      '/artifacts': 'https://api.hh.ru',
-    },
-  },
 })

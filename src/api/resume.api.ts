@@ -15,6 +15,6 @@ class ResumeApi extends AxiosService {
 }
 
 export const resumeApi = new ResumeApi({
-    baseURL: '',
-    withCredentials: true,
+    baseURL: 'https://api.hh.ru',
+    withCredentials: false,
 })

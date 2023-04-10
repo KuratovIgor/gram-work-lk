@@ -18,6 +18,6 @@ class CompanyApi extends AxiosService {
 }
 
 export const companyApi = new CompanyApi({
-    baseURL: '',
-    withCredentials: true,
+    baseURL: 'https://api.hh.ru',
+    withCredentials: false,
 })

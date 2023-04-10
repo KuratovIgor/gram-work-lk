@@ -18,6 +18,6 @@ class AreaApi extends AxiosService {
 }
 
 export const areaApi = new AreaApi({
-    baseURL: '',
-    withCredentials: true,
+    baseURL: 'https://api.hh.ru',
+    withCredentials: false,
 })
