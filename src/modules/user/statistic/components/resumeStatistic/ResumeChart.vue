@@ -1,6 +1,6 @@
 <template>
   <line-chart
-    class="history-chart"
+    class="resume-chart"
     v-bind="lineChartProps"
   />
 </template>
@@ -104,7 +104,11 @@ const { lineChartProps } = useLineChart({
 </script>
 
 <style lang="scss" scoped>
-.history-chart {
-  height: 700px;
+.resume-chart {
+  height: 620px;
+
+  @media (max-width: $screen--xs) {
+    height: 100%;
+  }
 }
 </style>

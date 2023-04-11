@@ -148,6 +148,10 @@ const { barChartProps } = useBarChart({
 
 <style lang="scss" scoped>
 .history-chart {
-  height: 700px;
+  height: 650px;
+
+  @media (max-width: $screen--xs) {
+    height: 100%;
+  }
 }
 </style>
