@@ -1,10 +1,4 @@
 .el-tabs {
-  &__nav {
-    &-prev, &-next {
-      display: none;
-    }
-  }
-
   &__item {
     @media (max-width: 376px) {
       font-size: 12px;

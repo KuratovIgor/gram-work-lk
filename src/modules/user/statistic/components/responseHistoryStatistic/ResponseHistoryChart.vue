@@ -9,7 +9,7 @@
 import { Chart, registerables } from 'chart.js'
 import { BarChart, useBarChart } from 'vue-chart-3'
 import { computed, getCurrentInstance } from 'vue'
-import { HistoryItemType } from '@/modules/user/history/types/history.type'
+import type { HistoryItemType } from '@/modules/user/history/types/history.type'
 import { uniq } from 'lodash'
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
