@@ -3,8 +3,8 @@ import type { DocumentNode } from 'graphql/language'
 
 export const getHistoryQuery = (): DocumentNode => {
     return gql`
-        query getHistory ($userId: String!) {
-            response_historiesList(filter: {user_id: {equals:$userId}}) {
+        query getHistory ($userId: String!, $month: String) {
+            response_historiesList(filter: {user_id: {equals:$userId}, AND: {date: {starts_with:$month}}}) {
                 items {
                     user_id
                     vacancy_id

@@ -1,10 +1,26 @@
 <template>
+  <el-date-picker
+    v-model="variables.month"
+    class="mb-20"
+    type="month"
+    format="MMMM"
+    value-format="MM"
+    placeholder="Выберите месяц"
+    @change="handleDateChange"
+  />
   <ratio-chart
-    v-if="isChartVisible"
+    v-if="isChartVisible && (ratio.invitations || ratio.failures || ratio.responses)"
+    v-loading="invitationsLoading && failuresLoading && responsesLoading"
     :responses="ratio.responses"
     :failures="ratio.failures"
     :invitations="ratio.invitations"
   />
+  <div
+    v-else
+    class="title d-f jc-c color-red"
+  >
+    Нет данных
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -24,7 +40,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const variables = reactive({
-  userId: ''
+  userId: '',
+  month: '',
 })
 
 const ratio = ref<RatioType>({ failures: 0, invitations: 0, responses: 0 })
@@ -57,8 +74,14 @@ watch(() => props.userId, () => {
   variables.userId = props.userId
 })
 
+const handleDateChange = (month: string): void => {
+  variables.month = month ?? ''
+}
+
 onMounted((): void => {
   variables.userId = props.userId
+
+  variables.month = ''
 
   setTimeout(() => {
     isChartVisible.value = true

@@ -141,14 +141,14 @@ const options = computed(() => ({
 }))
 
 const { barChartProps } = useBarChart({
-  chartData: chartData.value,
+  chartData,
   options,
 })
 </script>
 
 <style lang="scss" scoped>
 .history-chart {
-  height: 650px;
+  height: 600px;
 
   @media (max-width: $screen--xs) {
     height: 100%;

@@ -43,8 +43,6 @@ const getViews = async (): Promise<void> => {
   loading.value = false
 }
 
-
-
 onMounted(async (): Promise<void> => {
   resumes.value = await getResumes()
 

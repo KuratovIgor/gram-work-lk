@@ -97,7 +97,7 @@ const getData = (status: Status): number[] => {
 }
 
 const { radarChartProps } = useRadarChart({
-  chartData: chartData.value,
+  chartData,
   options,
 })
 </script>

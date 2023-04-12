@@ -69,7 +69,7 @@ const options = computed(() => ({
 }))
 
 const { doughnutChartProps } = useDoughnutChart({
-  chartData: chartData.value,
+  chartData,
   options,
 })
 </script>

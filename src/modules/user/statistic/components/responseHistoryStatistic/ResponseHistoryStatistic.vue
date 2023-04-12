@@ -1,9 +1,24 @@
 <template>
+  <el-date-picker
+    v-model="variables.month"
+    class="mb-20"
+    type="month"
+    format="MMMM"
+    value-format="MM"
+    placeholder="Выберите месяц"
+    @change="handleDateChange"
+  />
   <response-history-chart
     v-if="history.length"
     v-loading="loading"
     :history="history"
   />
+  <div
+    v-else
+    class="title d-f jc-c color-red"
+  >
+    Нет данных
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -24,7 +39,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const variables = reactive({
-  userId: ''
+  userId: '',
+  month: '',
 })
 
 const history = ref<HistoryItemType[]>([])
@@ -32,7 +48,7 @@ const history = ref<HistoryItemType[]>([])
 const { loading, onResult: onGetHistory } = useQuery(getHistoryQuery(), variables)
 
 onGetHistory((queryResult): void => {
-  if (queryResult.loading || !queryResult.data.response_historiesList.items.length) return
+  if (queryResult.loading) return
 
   history.value = []
 
@@ -54,7 +70,13 @@ watch(() => props.userId, () => {
   variables.userId = props.userId
 })
 
+const handleDateChange = (month: string): void => {
+  variables.month = month ?? ''
+}
+
 onMounted((): void => {
   variables.userId = props.userId
+
+  variables.month = ''
 })
 </script>
