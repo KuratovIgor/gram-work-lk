@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Install Node JS
         uses: actions/setup-node@v3
         with:
@@ -23,10 +26,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Node JS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.14.1
-
       - name: Test
         run: npm run test
