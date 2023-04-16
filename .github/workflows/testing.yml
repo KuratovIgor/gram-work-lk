@@ -6,13 +6,10 @@ on:
       - testing
 
 jobs:
-  test:
+  install:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Install Node JS
         uses: actions/setup-node@v3
         with:
@@ -21,5 +18,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+  test:
+    needs: install
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Test
         run: npm run test
