@@ -1,6 +1,10 @@
 import { fileURLToPath, URL } from 'node:url'
 import EslintPlugin from 'vite-plugin-eslint'
 import VitePluginFonts from 'vite-plugin-fonts'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -32,8 +36,25 @@ const svgIconsConfig = createSvgIconsPlugin({
   customDomId: '__svg__icons__dom__',
 })
 
+const autoImportConfig = AutoImport({
+  resolvers: [ElementPlusResolver()],
+  imports: ['vitest'],
+  dts: true,
+})
+
+const componentsConfig = Components({
+  resolvers: [ElementPlusResolver()],
+})
+
 export default defineConfig({
-  plugins: [vue(), eslintConfig, fontsConfig, svgIconsConfig],
+  plugins: [vue(), eslintConfig, fontsConfig, svgIconsConfig, componentsConfig, autoImportConfig],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    deps: {
+      inline: ['element-plus'],
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

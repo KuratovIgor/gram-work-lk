@@ -16,7 +16,10 @@
         :class="inputMargin"
         prop="login"
       >
-        <el-input v-model="authForm.login">
+        <el-input
+          id="login-input"
+          v-model="authForm.login"
+        >
           <template #prefix>
             Логин
           </template>
@@ -24,6 +27,7 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input
+          id="password-input"
           v-model="authForm.password"
           type="password"
           show-password
