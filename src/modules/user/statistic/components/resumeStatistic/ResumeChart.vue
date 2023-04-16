@@ -42,7 +42,7 @@ const chartData = computed(() => ({
   labels: labels.value,
   datasets: [
     {
-      label: 'Количество откликов',
+      label: 'Количество просмотров',
       data: data.value,
       backgroundColor: 'rgba(129, 85, 185, 0.4)',
       borderWidth: 3,

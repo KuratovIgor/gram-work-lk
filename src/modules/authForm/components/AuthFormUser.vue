@@ -18,6 +18,7 @@
       </p>
 
       <el-input
+        id="input"
         v-model="chatId"
         :class="inputMargin"
         :size="inputSize"
