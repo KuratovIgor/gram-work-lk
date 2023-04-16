@@ -6,7 +6,7 @@ on:
       - testing
 
 jobs:
-  install:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,14 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-  test:
-    needs: install
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
       - name: Test
         run: npm run test
