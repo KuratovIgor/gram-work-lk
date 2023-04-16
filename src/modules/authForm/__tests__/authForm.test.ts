@@ -2,12 +2,11 @@ import AuthForm from '../components/AuthForm.vue'
 import AuthFormAdmin from '../components/AuthFormAdmin.vue'
 import AuthFormUser from '../components/AuthFormUser.vue'
 import { describe, expect, test, beforeEach } from 'vitest'
-import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import router from '../../../router'
 import { setActivePinia, createPinia } from 'pinia'
 import { provideApolloClient } from '@vue/apollo-composable'
 import { apolloClient } from '../../../utils/apollo'
-import type { ElInput } from 'element-plus'
 
 const mountForm = (form: any) => {
     return mount(form, {
@@ -33,7 +32,7 @@ describe('Testing auth form', async () => {
         adminForm = mountAdminForm()
 
         userForm = mountUserForm()
-            })
+    })
     
     test('Mount form', async () => {
         expect(mountMainForm()).toBeTruthy()

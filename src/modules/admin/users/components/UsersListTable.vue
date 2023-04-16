@@ -97,6 +97,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Histogram, Checked } from '@element-plus/icons-vue'
 import type { GLUserType } from '@/modules/admin/users/types/graphql.type'
 import { useRouter } from 'vue-router'
 import { computed, getCurrentInstance } from 'vue'
