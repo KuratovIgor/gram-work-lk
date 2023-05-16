@@ -76,12 +76,12 @@ const handleDrawerClose = (): void => {
     justify-content: center;
     width: 40px;
     height: 40px;
-    border: 2px solid $color--primary;
+    border: 2px solid var(--color-primary);
     border-radius: 50%;
 
     &:hover,
     &--active {
-      box-shadow: 0 0 10px $color--primary-light;
+      box-shadow: 0 0 10px var(--color-primary-light);
     }
 
     &:active {
@@ -91,7 +91,7 @@ const handleDrawerClose = (): void => {
 
   &__icon {
     font-size: 30px;
-    color: $color--primary;
+    color: var(--color-primary);
   }
 }
 </style>

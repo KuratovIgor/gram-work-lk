@@ -11,6 +11,9 @@ import { BarChart, useBarChart } from 'vue-chart-3'
 import { computed, getCurrentInstance } from 'vue'
 import type { HistoryItemType } from '@/modules/user/history/types/history.type'
 import { uniq } from 'lodash'
+import { useDarkMode } from '@/composables/darkMode'
+
+const { isDarkMode } = useDarkMode()
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
@@ -78,14 +81,14 @@ const chartData = computed(() => ({
     {
       label: 'Приглашение',
       data: data.value.map((item) => item.invitation),
-      backgroundColor: ['#67c23a'],
+      backgroundColor: !isDarkMode.value ? ['#67c23a'] : ['#4e8e2f'],
       borderRadius: 100,
       borderWidth: 3,
     },
     {
       label: 'Отказ',
       data: data.value.map((item) => item.failure),
-      backgroundColor: ['#f56c6c'],
+      backgroundColor: !isDarkMode ? ['#f56c6c'] : ['#b25252'],
       borderRadius: 100,
       borderWidth: 3,
     },

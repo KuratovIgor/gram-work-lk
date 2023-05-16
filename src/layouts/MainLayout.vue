@@ -1,7 +1,10 @@
 <template>
-  <div class="d-f fd-c h-100">
+  <div
+    class="layout d-f fd-c h-100"
+    :class="{ 'dark-mode': isDarkMode }"
+  >
     <main-header @drawer="handleDrawerOpen" />
-    <div class="body">
+    <el-container class="body">
       <template v-if="isUserAuthorized">
         <mobile-drawer
           v-if="isMobile"
@@ -15,7 +18,7 @@
         />
       </template>
       <router-view />
-    </div>
+    </el-container>
   </div>
 </template>
 
@@ -26,8 +29,11 @@ import { useUserStore } from '@/stores/user.store'
 import { computed, getCurrentInstance, ref } from 'vue'
 import MobileDrawer from '@/components/drawer/MobileDrawer.vue'
 import { USER_SIDEBAR_ITEMS, ADMIN_SIDEBAR_ITEMS } from '@/utils/sidebar'
+import { useDarkMode } from '@/composables/darkMode'
 
 const userStore = useUserStore()
+
+const { isDarkMode } = useDarkMode()
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')

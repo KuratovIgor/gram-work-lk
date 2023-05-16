@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 <style lang="scss" scoped>
 .sidebar {
   height: 100%;
-  border-right: 1px solid $color--divider;
+  border-right: 1px solid var(--color-divider);
   padding: 15px;
 }
 </style>

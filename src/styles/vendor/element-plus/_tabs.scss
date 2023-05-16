@@ -1,5 +1,13 @@
 .el-tabs {
   &__item {
+    &.is-top {
+      color: var(--color-black);
+
+      &.is-active {
+        color: var(--el-color-primary);
+      }
+    }
+
     @media (max-width: 376px) {
       font-size: 12px;
     }

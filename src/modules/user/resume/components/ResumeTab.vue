@@ -106,5 +106,6 @@ const handleResumeDownload = (url: string, fileName: string): void => {
 <style lang="scss" scoped>
 .resume {
   font-size: 18px;
+  color: var(--color-black);
 }
 </style>

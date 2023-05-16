@@ -109,7 +109,7 @@ const handleUserLogin = (): void => {
     justify-content: center;
     font-weight: 700;
     font-size: 30px;
-    color: $color--primary;
+    color: var(--color-primary);
 
     @media (max-width: $screen--sm) {
       font-size: 25px

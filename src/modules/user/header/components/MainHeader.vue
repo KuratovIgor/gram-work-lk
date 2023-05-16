@@ -1,5 +1,8 @@
 <template>
-  <div class="header">
+  <div
+    class="header"
+    :class="{ 'header--dark': isDarkMode }"
+  >
     <p
       v-if="!isMobile || !userStore.isAuthorized"
       class="header__title"
@@ -19,13 +22,18 @@
     >
       Привет, {{ userStore.userName }}!
     </p>
-    <p
-      v-if="userStore.isAuthorized"
-      class="header__logout"
-      @click="handleLogout"
-    >
-      Выйти
-    </p>
+    
+    <div class="d-f">
+      <p
+        v-if="userStore.isAuthorized"
+        class="header__logout"
+        @click="handleLogout"
+      >
+        Выйти
+      </p>
+
+      <el-switch v-model="isDarkMode" />
+    </div>
   </div>
 </template>
 
@@ -40,16 +48,25 @@ import {
 } from '@/utils/cookie'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
-import { computed, getCurrentInstance, ref } from 'vue'
-
-const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
-const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
+import { computed, getCurrentInstance, ref, watch } from 'vue'
+import { useDarkMode } from '@/composables/darkMode'
 
 const userStore = useUserStore()
+
+const { setDarkMode } = useDarkMode()
 
 const router = useRouter()
 
 const emit = defineEmits(['drawer'])
+
+const isDarkMode = ref(false)
+
+const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
+const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
+
+watch(() => isDarkMode.value, (newValue) => {
+  setDarkMode(newValue)
+})
 
 const handleDrawerOpen = (): void => {
   emit('drawer')
@@ -83,10 +100,10 @@ const handleLogout = (): void => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $color--divider;
+  border-bottom: 1px solid var(--color-divider);
   font-weight: 700;
   line-height: 31px;
-  color: $color--primary;
+  color: var(--color-primary);
   padding: 10px 20px;
 
   &__title {
@@ -99,7 +116,7 @@ const handleLogout = (): void => {
 
   &__name {
     font-size: 20px;
-    color: $color--danger;
+    color: var(--color-danger);
 
     @media (max-width: $screen--sm) {
       font-size: 15px;
@@ -107,11 +124,12 @@ const handleLogout = (): void => {
   }
 
   &__logout {
+    margin-right: 10px;
     transition: 0.3s linear;
     cursor: pointer;
 
     &:hover {
-      color: $color--primary-light;
+      color: var(--color-primary-light);
     }
 
     @media (max-width: $screen--sm) {

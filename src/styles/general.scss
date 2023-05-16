@@ -1,7 +1,29 @@
+.layout {
+  background-color: var(--color-background);
+}
+
 .body {
   height: 100%;
   display: flex;
   overflow: hidden;
+}
+
+.dark-mode {
+  --color-black: #a6a9ad;
+  --color-white: #424243;
+  --color-background: #2d2d2f;
+  --color-divider: #6b6d71;
+  --color-primary: #CFD3DC;
+  --color-primary-light: #fff;
+
+  --el-color-success: #4e8e2f !important;
+  --el-color-primary: #3375b9 !important;
+  --el-color-warning: #a77730 !important;
+  --el-color-danger: #b25252 !important;
+
+  --el-button-bg-color: #a6a9ad !important;
+
+  --el-fill-color-light: #424243 !important;
 }
 
 .page-content {
@@ -19,7 +41,7 @@
   height: 100%;
   border: 1px solid #f2effa;
   border-radius: 20px;
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 20px;
   overflow: auto;
 
@@ -32,7 +54,7 @@
   font-weight: 700;
   font-size: 25px;
   margin-bottom: 30px;
-  color: #8155b9;
+  color: var(--color-primary-light);
 
   @media (max-width: 768px) {
     margin-bottom: 20px;
@@ -61,16 +83,16 @@
 .vertical-divider {
   width: 1px;
   height: 100%;
-  border: 1px solid #dcdfe6;
-  background-color: #dcdfe6;
+  border: 1px solid var(--color-divider);
+  background-color: var(--color-divider);
 }
 
 .horizontal-divider {
   width: 100%;
   height: 1px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid var(--color-divider);
   margin: 20px 0;
-  background-color: #dcdfe6;
+  background-color: var(--color-divider);
 
   @media (max-width: 768px) {
     margin: 15px 0;

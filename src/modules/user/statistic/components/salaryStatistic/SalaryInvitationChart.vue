@@ -11,6 +11,9 @@ import { RadarChart, useRadarChart } from 'vue-chart-3'
 import { computed } from 'vue'
 import type { SalaryType } from '@/modules/user/statistic/types/salary.type'
 import { Status } from '@/modules/user/statistic/constants/constants'
+import { useDarkMode } from '@/composables/darkMode'
+
+const { isDarkMode } = useDarkMode()
 
 Chart.register(...registerables)
 
@@ -41,11 +44,11 @@ const chartData = computed(() => ({
       data: invitations.value,
       fill: true,
       backgroundColor: 'rgba(103, 194, 58, 0.2)',
-      borderColor: '#67c23a',
-      pointBackgroundColor: '#67c23a',
+      borderColor: !isDarkMode.value ? ['#67c23a'] : ['#4e8e2f'],
+      pointBackgroundColor: !isDarkMode.value ? ['#67c23a'] : ['#4e8e2f'],
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(103, 194, 58)'
+      pointHoverBorderColor: 'rgb(103, 194, 58)',
     },
   ],
 }))
@@ -73,6 +76,9 @@ const options = computed(() => ({
       },
       angleLines: {
         display: true,
+      },
+      grid: {
+        color: '#a6a9ad',
       },
     }
   }
