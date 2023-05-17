@@ -5,7 +5,16 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background-color: $color--background;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-background: #f7f8fd;
+  --color-primary: #3f2390;
+  --color-primary-light: #8155b9;
+  --color-danger: #f56c6c;
+  --color-success: #67c23a;
+  --color-divider: #dcdfe6;
+  --color-card: #fff;
+  --color-switch: #000;
 }
 
 body {
@@ -17,7 +26,7 @@ body {
 h1 {
   @include text-h1;
 
-  color: $color--primary;
+  color: var(--color-primary);
   margin-bottom: 15px;
 
   @media (max-width: 768px) {

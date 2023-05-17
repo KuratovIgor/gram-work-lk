@@ -9,6 +9,9 @@
 import { Chart, registerables } from 'chart.js'
 import { DoughnutChart, useDoughnutChart } from 'vue-chart-3'
 import { computed, getCurrentInstance } from 'vue'
+import { useDarkMode } from '@/composables/darkMode'
+
+const { isDarkMode } = useDarkMode()
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
@@ -36,7 +39,7 @@ const chartData = computed(() => ({
     {
       label: 'Количество откликов',
       data: data.value,
-      backgroundColor: ['#8155b9', '#67c23a', '#f56c6c'],
+      backgroundColor: !isDarkMode.value ? ['#8155b9', '#67c23a', '#f56c6c'] : ['#6e40a8', '#4e8e2f', '#b25252'],
     },
   ],
 }))
@@ -50,6 +53,9 @@ const options = computed(() => ({
     legend: {
       display: true,
       position: 'bottom',
+      labels: {
+        color: '#a6a9ad',
+      },
     },
   },
   animation: {

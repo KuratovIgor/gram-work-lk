@@ -543,10 +543,16 @@ onMounted((): void => {
 .add-button {
   border: none;
   font-size: 18px;
-  background-color: $color--primary-light;
+  background-color: var(--color-primary-light);
 }
 
 .description {
   height: 100px;
+}
+
+.dark-mode {
+  .add-button {
+    background-color: var(--el-color-primary);
+  }
 }
 </style>

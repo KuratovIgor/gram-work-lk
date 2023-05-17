@@ -1,13 +1,18 @@
 .el-card {
   margin: 15px;
-  border: 1px solid #3f2390;
+  border: 1px solid var(--color-primary);
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(#f56c6c, 0.5);
   font-size: 14px;
+  background-color: var(--color-card);
 
   &__header {
-    color: #3f2390;
+    color: var(--color-primary);
     font-weight: 700;
+  }
+
+  &__body {
+    color: var(--color-black);
   }
 }
 

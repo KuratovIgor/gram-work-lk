@@ -49,7 +49,7 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-divider />
+    <div class="horizontal-divider" />
     <div class="d-f jc-fe fw-w">
       <el-button
         class="mb-10"
@@ -136,11 +136,12 @@ onMounted((): void => {
 <style lang="scss" scoped>
 .profile {
   padding: 20px;
+  color: var(--color-black);
 
   &__name {
     font-weight: 700;
     font-size: 30px;
-    color: $color--primary-light;
+    color: var(--color-primary-light);
     margin-bottom: 30px;
 
     @media (max-width: $screen--sm) {

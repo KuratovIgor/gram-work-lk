@@ -13,3 +13,26 @@
     height: 137px;
   }
 }
+
+.dark-mode {
+  .el-input {
+    &__wrapper {
+      --el-input-border-color: #262727;
+
+      background-color: transparent;
+    }
+
+    &__inner {
+      color: #CFD3DC;
+    }
+  }
+
+  .el-textarea {
+    &__inner {
+      --el-input-border-color: #262727;
+
+      color: #CFD3DC;
+      background-color: transparent;
+    }
+  }
+}
