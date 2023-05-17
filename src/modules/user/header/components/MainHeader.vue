@@ -1,20 +1,26 @@
 <template>
-  <div
-    class="header"
-    :class="{ 'header--dark': isDarkMode }"
-  >
+  <div class="header">
     <p
       v-if="!isMobile || !userStore.isAuthorized"
       class="header__title"
     >
       GramWork
     </p>
-    <img
-      v-else
-      class="header__burger"
-      src="/src/assets/icons/burger.svg"
-      @click="handleDrawerOpen"
-    />
+    
+    <template v-else>
+      <img
+        v-if="isDarkMode"
+        class="header__burger"
+        src="/src/assets/icons/burger-dark.svg"
+        @click="handleDrawerOpen"
+      />
+      <img
+        v-else
+        class="header__burger"
+        src="/src/assets/icons/burger.svg"
+        @click="handleDrawerOpen"
+      />
+    </template>
 
     <p
       v-if="userStore.isAdmin"
@@ -31,8 +37,6 @@
       >
         Выйти
       </p>
-
-      <el-switch v-model="isDarkMode" />
     </div>
   </div>
 </template>
@@ -48,25 +52,19 @@ import {
 } from '@/utils/cookie'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.store'
-import { computed, getCurrentInstance, ref, watch } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { useDarkMode } from '@/composables/darkMode'
 
 const userStore = useUserStore()
 
-const { setDarkMode } = useDarkMode()
+const { isDarkMode } = useDarkMode()
 
 const router = useRouter()
 
 const emit = defineEmits(['drawer'])
 
-const isDarkMode = ref(false)
-
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
-
-watch(() => isDarkMode.value, (newValue) => {
-  setDarkMode(newValue)
-})
 
 const handleDrawerOpen = (): void => {
   emit('drawer')

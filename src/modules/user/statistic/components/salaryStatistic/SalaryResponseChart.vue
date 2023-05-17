@@ -43,7 +43,7 @@ const chartData = computed(() => ({
       label: 'Отклики',
       data: responses.value,
       fill: true,
-      backgroundColor: !isDarkMode ? 'rgba(129, 85, 185, 0.2)' : 'rgba(129, 85, 185, 0.5)',
+      backgroundColor: !isDarkMode.value ? 'rgba(129, 85, 185, 0.2)' : 'rgba(129, 85, 185, 0.5)',
       borderColor: '#8155b9',
       pointBackgroundColor: '#8155b9',
       pointBorderColor: '#fff',
@@ -77,9 +77,9 @@ const options = computed(() => ({
       angleLines: {
         display: true,
       },
-      grid: {
+      grid: isDarkMode.value ? {
         color: '#a6a9ad',
-      },
+      } : {},
     }
   }
 }))

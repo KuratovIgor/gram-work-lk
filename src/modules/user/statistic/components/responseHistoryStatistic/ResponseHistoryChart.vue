@@ -88,7 +88,7 @@ const chartData = computed(() => ({
     {
       label: 'Отказ',
       data: data.value.map((item) => item.failure),
-      backgroundColor: !isDarkMode ? ['#f56c6c'] : ['#b25252'],
+      backgroundColor: !isDarkMode.value ? ['#f56c6c'] : ['#b25252'],
       borderRadius: 100,
       borderWidth: 3,
     },
@@ -111,6 +111,9 @@ const options = computed(() => ({
     legend: {
       position: 'bottom',
       display: true,
+      labels: {
+        color: '#a6a9ad',
+      },
     },
   },
   scales: {
@@ -119,11 +122,17 @@ const options = computed(() => ({
         tickColor: 'transparent',
         drawOnChartArea: false,
       },
+      ticks: {
+        color: '#a6a9ad',
+      },
     },
     y: {
       grid: {
         tickColor: 'transparent',
         drawBorder: false,
+      },
+      ticks: {
+        color: '#a6a9ad',
       },
     },
   },

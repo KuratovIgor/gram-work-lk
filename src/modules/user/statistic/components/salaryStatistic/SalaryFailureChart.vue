@@ -44,8 +44,8 @@ const chartData = computed(() => ({
       data: failures.value,
       fill: true,
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: !isDarkMode ? ['#f56c6c'] : ['#b25252'],
-      pointBackgroundColor: !isDarkMode ? ['#f56c6c'] : ['#b25252'],
+      borderColor: !isDarkMode.value ? ['#f56c6c'] : ['#b25252'],
+      pointBackgroundColor: !isDarkMode.value ? ['#f56c6c'] : ['#b25252'],
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(255, 99, 132)',
@@ -77,9 +77,9 @@ const options = computed(() => ({
       angleLines: {
         display: true,
       },
-      grid: {
+      grid: isDarkMode.value ? {
         color: '#a6a9ad',
-      },
+      } : {},
     }
   }
 }))

@@ -9,21 +9,42 @@
 }
 
 .dark-mode {
-  --color-black: #a6a9ad;
+  --color-black: #fff;
   --color-white: #424243;
   --color-background: #2d2d2f;
   --color-divider: #6b6d71;
   --color-primary: #CFD3DC;
   --color-primary-light: #fff;
+  --color-card: #2d2d2f;
 
   --el-color-success: #4e8e2f !important;
   --el-color-primary: #3375b9 !important;
   --el-color-warning: #a77730 !important;
   --el-color-danger: #b25252 !important;
 
-  --el-button-bg-color: #a6a9ad !important;
+  --el-button-bg-color: #424243 !important;
 
   --el-fill-color-light: #424243 !important;
+  --el-table-tr-bg-color: #424243 !important;
+  --el-fill-color-blank: transparent !important;
+  --el-fill-color-lighter: #424243 !important;
+  --el-text-color-regular: #fff !important;
+
+  --el-fill-color: #6b6d71 !important;
+  --el-disabled-bg-color: #6b6d71 !important;
+
+  --el-bg-color-overlay: #2d2d2f !important;
+  --el-text-color-primary: #fff !important;
+
+  --el-bg-color: #424243 !important;
+
+  --color-switch: #f6d567 !important;
+
+  --el-mask-color: rgba(0, 0, 0, 0.6) !important;
+
+  a {
+    color: #3375b9;
+  }
 }
 
 .page-content {

@@ -44,9 +44,9 @@ const chartData = computed(() => ({
       label: 'Отказы',
       data: failures.value,
       fill: true,
-      backgroundColor: !isDarkMode ? 'rgba(255, 99, 132, 0.2)' : 'rgba(178, 82, 82, 0.5)',
-      borderColor: !isDarkMode ? ['#f56c6c'] : ['#b25252'],
-      pointBackgroundColor: !isDarkMode ? ['#f56c6c'] : ['#b25252'],
+      backgroundColor: !isDarkMode.value ? 'rgba(255, 99, 132, 0.2)' : 'rgba(178, 82, 82, 0.5)',
+      borderColor: !isDarkMode.value ? ['#f56c6c'] : ['#b25252'],
+      pointBackgroundColor: !isDarkMode.value ? ['#f56c6c'] : ['#b25252'],
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(255, 99, 132)',
@@ -66,7 +66,7 @@ const chartData = computed(() => ({
       label: 'Отклики',
       data: responses.value,
       fill: true,
-      backgroundColor: !isDarkMode ? 'rgba(129, 85, 185, 0.2)' : 'rgba(129, 85, 185, 0.5)',
+      backgroundColor: !isDarkMode.value ? 'rgba(129, 85, 185, 0.2)' : 'rgba(129, 85, 185, 0.5)',
       borderColor: '#8155b9',
       pointBackgroundColor: '#8155b9',
       pointBorderColor: '#fff',
@@ -81,6 +81,9 @@ const options = computed(() => ({
     legend: {
       position: 'bottom',
       display: true,
+      labels: {
+        color: '#a6a9ad',
+      },
     },
   },
   elements: {
@@ -97,9 +100,9 @@ const options = computed(() => ({
       angleLines: {
         display: true,
       },
-      grid: {
+      grid: isDarkMode.value ? {
         color: '#a6a9ad',
-      },
+      } : {},
     },
   }
 }))

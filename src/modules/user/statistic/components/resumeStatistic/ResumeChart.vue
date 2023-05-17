@@ -11,6 +11,9 @@ import { LineChart, useLineChart } from 'vue-chart-3'
 import { computed, getCurrentInstance } from 'vue'
 import type { ResumeViewsType } from '@/modules/user/statistic/types/view.type'
 import { uniq } from 'lodash'
+import { useDarkMode } from '@/composables/darkMode'
+
+const { isDarkMode } = useDarkMode()
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
@@ -46,7 +49,7 @@ const chartData = computed(() => ({
       data: data.value,
       backgroundColor: 'rgba(129, 85, 185, 0.4)',
       borderWidth: 3,
-      borderColor: 'rgb(75, 192, 192)',
+      borderColor: !isDarkMode.value ? 'rgb(75, 192, 192)' : 'rgb(31, 140, 140)',
       tension: 0.2,
       fill: true,
     },
@@ -78,6 +81,18 @@ const options = computed(() => ({
 
           return result
         },
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: '#a6a9ad',
+      },
+    },
+    y: {
+      ticks: {
+        color: '#a6a9ad',
       },
     },
   },

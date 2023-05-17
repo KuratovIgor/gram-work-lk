@@ -39,7 +39,7 @@ const chartData = computed(() => ({
     {
       label: 'Количество откликов',
       data: data.value,
-      backgroundColor: !isDarkMode ? ['#8155b9', '#67c23a', '#f56c6c'] : ['#6e40a8', '#4e8e2f', '#b25252'],
+      backgroundColor: !isDarkMode.value ? ['#8155b9', '#67c23a', '#f56c6c'] : ['#6e40a8', '#4e8e2f', '#b25252'],
     },
   ],
 }))
@@ -53,6 +53,9 @@ const options = computed(() => ({
     legend: {
       display: true,
       position: 'bottom',
+      labels: {
+        color: '#a6a9ad',
+      },
     },
   },
   animation: {

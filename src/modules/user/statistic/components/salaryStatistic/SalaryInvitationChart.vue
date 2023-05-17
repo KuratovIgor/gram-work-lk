@@ -77,9 +77,9 @@ const options = computed(() => ({
       angleLines: {
         display: true,
       },
-      grid: {
+      grid: isDarkMode.value ? {
         color: '#a6a9ad',
-      },
+      } : {},
     }
   }
 }))

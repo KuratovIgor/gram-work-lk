@@ -37,12 +37,13 @@
 import type { LKPages } from '@/utils/enums'
 import { useRoute } from 'vue-router'
 import { computed, getCurrentInstance } from 'vue'
+import { AdminLKPages } from '@/utils/enums'
 
 const screenSize = computed(() => getCurrentInstance()?.appContext.config.globalProperties?.$screen?.size)
 const isMobile = computed(() => !screenSize.value || screenSize.value === 'xs')
 
 type Props = {
-  page: LKPages
+  page: LKPages | AdminLKPages
   label: string
 }
 
