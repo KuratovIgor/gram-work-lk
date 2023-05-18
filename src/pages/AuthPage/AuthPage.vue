@@ -17,5 +17,12 @@ import { AuthForm } from '@/modules/authForm/index'
   justify-content: center;
   margin-top: 80px;
   padding: 0px 20px;
+  color: var(--color-black);
+}
+
+.dark-mode {
+  .auth {
+    --el-bg-color-overlay: #424243 !important;
+  }
 }
 </style>

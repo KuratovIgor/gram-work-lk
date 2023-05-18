@@ -2,7 +2,6 @@ import { fileURLToPath, URL } from 'node:url'
 import EslintPlugin from 'vite-plugin-eslint'
 import VitePluginFonts from 'vite-plugin-fonts'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 
@@ -42,12 +41,8 @@ const autoImportConfig = AutoImport({
   dts: true,
 })
 
-const componentsConfig = Components({
-  resolvers: [ElementPlusResolver()],
-})
-
 export default defineConfig({
-  plugins: [vue(), eslintConfig, fontsConfig, svgIconsConfig, componentsConfig, autoImportConfig],
+  plugins: [vue(), eslintConfig, fontsConfig, svgIconsConfig, autoImportConfig],
   test: {
     globals: true,
     environment: 'jsdom',
