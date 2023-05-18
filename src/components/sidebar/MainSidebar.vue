@@ -18,7 +18,10 @@
       <el-icon v-else>
         <moon />
       </el-icon>
-      <el-switch v-model="isDarkMode" />
+      <el-switch
+        v-model="isDarkMode"
+        inline-prompt
+      />
     </div>
   </div>
 </template>

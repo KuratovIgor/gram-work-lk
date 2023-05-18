@@ -4,22 +4,24 @@
       {{ props.user.lastname }} {{ props.user.name }} {{ props.user.middlename }}
     </template>
     <template #content>
-      <el-button
-        type="success"
-        :size="buttonSize"
-        icon="histogram"
-        @click="handleStatisticOpen(props.user.user_id)"
-      >
-        Статистика
-      </el-button>
-      <el-button
-        type="primary"
-        :size="buttonSize"
-        icon="checked"
-        @click="handleResponsesOpen(props.user.user_id)"
-      >
-        Отлики
-      </el-button>
+      <div class="mb-10">
+        <el-button
+          type="success"
+          :size="buttonSize"
+          icon="histogram"
+          @click="handleStatisticOpen(props.user.user_id)"
+        >
+          Статистика
+        </el-button>
+        <el-button
+          type="primary"
+          :size="buttonSize"
+          icon="checked"
+          @click="handleResponsesOpen(props.user.user_id)"
+        >
+          Отлики
+        </el-button>
+      </div>
     </template>
     <template #collapse-title>
       <div class="color-info">
